@@ -1,0 +1,3 @@
+echo Cleaning...
+rm -Rf ./target
+./build.sh
