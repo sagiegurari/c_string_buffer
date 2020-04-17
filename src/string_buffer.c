@@ -2,6 +2,9 @@
 #include <stdlib.h>
 #include <string.h>
 
+// private functions definitions
+void _string_buffer_append(struct StringBuffer *buffer, char character);
+
 struct StringBuffer *string_buffer_new()
 {
   return(string_buffer_new_with_size(10000));
@@ -95,17 +98,7 @@ bool string_buffer_append(struct StringBuffer *buffer, char character)
     return(false);
   }
 
-  if (buffer->content_size == buffer->max_size)
-  {
-    buffer->max_size = buffer->content_size * 2;
-    buffer->value    = realloc(buffer->value, buffer->max_size);
-
-    // put null at end
-    buffer->value[buffer->content_size * 2] = 0;
-  }
-
-  buffer->value[buffer->content_size] = character;
-  buffer->content_size++;
+  _string_buffer_append(buffer, character);
   return(true);
 }
 
@@ -147,10 +140,7 @@ bool string_buffer_append_string_with_size(struct StringBuffer *buffer, char *st
 
   for (int index = 0; index < size; index++)
   {
-    if (!string_buffer_append(buffer, string[index]))
-    {
-      return(false);
-    }
+    _string_buffer_append(buffer, string[index]);
   }
 
   return(true);
@@ -177,5 +167,21 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
   string_copy[string_size] = 0;
 
   return(string_copy);
+}
+
+
+void _string_buffer_append(struct StringBuffer *buffer, char character)
+{
+  if (buffer->content_size == buffer->max_size)
+  {
+    buffer->max_size = buffer->content_size * 2;
+    buffer->value    = realloc(buffer->value, buffer->max_size);
+
+    // put null at end
+    buffer->value[buffer->content_size * 2] = 0;
+  }
+
+  buffer->value[buffer->content_size] = character;
+  buffer->content_size++;
 }
 

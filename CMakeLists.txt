@@ -46,4 +46,19 @@ add_test(NAME new_with_size_negative
 add_test(NAME new_with_size_positive
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
   COMMAND test_string_buffer new_with_size_positive)
+add_test(NAME append_no_resize
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_no_resize)
+add_test(NAME append_with_single_resize
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_with_single_resize)
+add_test(NAME append_with_multiple_resize
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_with_multiple_resize)
+add_test(NAME append_string_no_resize
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_string_no_resize)
+add_test(NAME append_string_with_single_resize
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_string_with_single_resize)
 
