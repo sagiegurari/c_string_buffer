@@ -221,6 +221,7 @@ void test_append_long_long()
   assert_string_equal(string_buffer_to_string(buffer), "150");
 }
 
+
 void test_flow()
 {
   struct StringBuffer *buffer = string_buffer_new_with_size(1);
@@ -238,17 +239,17 @@ void test_flow()
   assert_true(string_buffer_append_bool(buffer, false));
 
   assert_num_equal(buffer->initial_size, 1);
-  assert_num_equal(buffer->content_size, 22);
-  assert_num_equal(buffer->max_size,32 );
-  assert_string_equal(string_buffer_to_string(buffer), "123456abcdeABCDEtruefalse-123150");
+  assert_num_equal(buffer->content_size, 24);
+  assert_num_equal(buffer->max_size, 32);
+  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse");
 
-assert_true(string_buffer_append_int(buffer, -123));
+  assert_true(string_buffer_append_int(buffer, -123));
   assert_true(string_buffer_append_long_long(buffer, 150));
 
   assert_num_equal(buffer->initial_size, 1);
-  assert_num_equal(buffer->content_size, 29);
-  assert_num_equal(buffer->max_size,32 );
-  assert_string_equal(string_buffer_to_string(buffer), "123456abcdeABCDEtruefalse-123150");
+  assert_num_equal(buffer->content_size, 31);
+  assert_num_equal(buffer->max_size, 32);
+  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-123150");
 }
 
 
@@ -365,7 +366,8 @@ int main(int argc, char *argv[])
   else if (strcmp("append_long_long", test_name) == 0)
   {
     run_test(test_append_long_long, test_name);
-  }else if (strcmp("flow", test_name) == 0)
+  }
+  else if (strcmp("flow", test_name) == 0)
   {
     run_test(test_flow, test_name);
   }
