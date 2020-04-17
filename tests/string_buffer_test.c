@@ -133,8 +133,98 @@ void test_append_string_with_single_resize()
 }
 
 
+void test_append_bool()
+{
+  struct StringBuffer *buffer = string_buffer_new_with_size(100);
+
+  assert_true(string_buffer_append_bool(buffer, true));
+  assert_true(string_buffer_append_bool(buffer, false));
+
+  assert_num_equal(buffer->initial_size, 100);
+  assert_num_equal(buffer->content_size, 9);
+  assert_num_equal(buffer->max_size, 100);
+  assert_string_equal(string_buffer_to_string(buffer), "truefalse");
+}
+
+
+void test_append_short()
+{
+  struct StringBuffer *buffer = string_buffer_new_with_size(100);
+
+  short               value = 150;
+
+  assert_true(string_buffer_append_short(buffer, value));
+
+  assert_num_equal(buffer->initial_size, 100);
+  assert_num_equal(buffer->content_size, 3);
+  assert_num_equal(buffer->max_size, 100);
+  assert_string_equal(string_buffer_to_string(buffer), "150");
+}
+
+
+void test_append_int()
+{
+  struct StringBuffer *buffer = string_buffer_new_with_size(100);
+
+  int                 value = 150;
+
+  assert_true(string_buffer_append_int(buffer, value));
+
+  assert_num_equal(buffer->initial_size, 100);
+  assert_num_equal(buffer->content_size, 3);
+  assert_num_equal(buffer->max_size, 100);
+  assert_string_equal(string_buffer_to_string(buffer), "150");
+}
+
+
+void test_append_int_negative()
+{
+  struct StringBuffer *buffer = string_buffer_new_with_size(100);
+
+  int                 value = -123456;
+
+  assert_true(string_buffer_append_int(buffer, value));
+
+  assert_num_equal(buffer->initial_size, 100);
+  assert_num_equal(buffer->content_size, 7);
+  assert_num_equal(buffer->max_size, 100);
+  assert_string_equal(string_buffer_to_string(buffer), "-123456");
+}
+
+
+void test_append_long()
+{
+  struct StringBuffer *buffer = string_buffer_new_with_size(100);
+
+  long                value = 150;
+
+  assert_true(string_buffer_append_long(buffer, value));
+
+  assert_num_equal(buffer->initial_size, 100);
+  assert_num_equal(buffer->content_size, 3);
+  assert_num_equal(buffer->max_size, 100);
+  assert_string_equal(string_buffer_to_string(buffer), "150");
+}
+
+
+void test_append_long_long()
+{
+  struct StringBuffer *buffer = string_buffer_new_with_size(100);
+
+  long long           value = 150;
+
+  assert_true(string_buffer_append_long_long(buffer, value));
+
+  assert_num_equal(buffer->initial_size, 100);
+  assert_num_equal(buffer->content_size, 3);
+  assert_num_equal(buffer->max_size, 100);
+  assert_string_equal(string_buffer_to_string(buffer), "150");
+}
+
+
 void fail()
 {
+  printf(" Error\n");
   exit(1);
 }
 
@@ -152,6 +242,7 @@ void assert_num_equal(long value1, long value2)
 {
   if (value1 != value2)
   {
+    printf("Assert Failed, value: %li not equals to value: %li", value1, value2);
     fail();
   }
 }
@@ -161,6 +252,7 @@ void assert_string_equal(char *value1, char *value2)
 {
   if (strcmp(value1, value2) != 0)
   {
+    printf("Assert Failed, value: %s not equals to value: %s", value1, value2);
     fail();
   }
 }
@@ -219,6 +311,30 @@ int main(int argc, char *argv[])
   else if (strcmp("append_string_with_single_resize", test_name) == 0)
   {
     run_test(test_append_string_with_single_resize, test_name);
+  }
+  else if (strcmp("append_bool", test_name) == 0)
+  {
+    run_test(test_append_bool, test_name);
+  }
+  else if (strcmp("append_short", test_name) == 0)
+  {
+    run_test(test_append_short, test_name);
+  }
+  else if (strcmp("append_int", test_name) == 0)
+  {
+    run_test(test_append_int, test_name);
+  }
+  else if (strcmp("append_int_negative", test_name) == 0)
+  {
+    run_test(test_append_int_negative, test_name);
+  }
+  else if (strcmp("append_long", test_name) == 0)
+  {
+    run_test(test_append_long, test_name);
+  }
+  else if (strcmp("append_long_long", test_name) == 0)
+  {
+    run_test(test_append_long_long, test_name);
   }
   else
   {

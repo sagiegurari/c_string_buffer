@@ -61,4 +61,22 @@ add_test(NAME append_string_no_resize
 add_test(NAME append_string_with_single_resize
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
   COMMAND test_string_buffer append_string_with_single_resize)
+add_test(NAME append_bool
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_bool)
+add_test(NAME append_short
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_short)
+add_test(NAME append_int
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_int)
+add_test(NAME append_int_negative
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_int_negative)
+add_test(NAME append_long
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_long)
+add_test(NAME append_long_long
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer append_long_long)
 

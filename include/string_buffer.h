@@ -12,16 +12,20 @@ struct StringBuffer
 };
 
 struct StringBuffer *string_buffer_new();
-struct StringBuffer *string_buffer_new_with_size(const long initial_size);
+struct StringBuffer *string_buffer_new_with_size(const long);
 
-bool string_buffer_clear(struct StringBuffer *buffer);
-void string_buffer_release(struct StringBuffer *buffer);
+bool string_buffer_clear(struct StringBuffer *);
+void string_buffer_release(struct StringBuffer *);
 
-bool string_buffer_append(struct StringBuffer *buffer, char character);
-bool string_buffer_append_string(struct StringBuffer *buffer, char *string);
-bool string_buffer_append_string_with_size(struct StringBuffer *buffer, char *string, int size);
+bool string_buffer_append(struct StringBuffer *, char);
+bool string_buffer_append_string(struct StringBuffer *, char *);
+bool string_buffer_append_bool(struct StringBuffer *, bool);
+bool string_buffer_append_short(struct StringBuffer *, short);
+bool string_buffer_append_int(struct StringBuffer *, int);
+bool string_buffer_append_long(struct StringBuffer *, long);
+bool string_buffer_append_long_long(struct StringBuffer *, long long);
 
-char *string_buffer_to_string(struct StringBuffer *buffer);
+char *string_buffer_to_string(struct StringBuffer *);
 
 #endif
 
