@@ -79,4 +79,7 @@ add_test(NAME append_long
 add_test(NAME append_long_long
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
   COMMAND test_string_buffer append_long_long)
+add_test(NAME complex_flow
+  WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
+  COMMAND test_string_buffer flow)
 
