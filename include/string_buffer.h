@@ -2,20 +2,24 @@
 #define __STRING_BUFFER_H__
 
 #include <stdbool.h>
+#include <stddef.h>
 
 struct StringBuffer
 {
-  unsigned long initial_size;
-  unsigned long content_size;
-  unsigned long max_size;
-  char          *value;
+  size_t initial_size;
+  size_t content_size;
+  size_t max_size;
+  char   *value;
 };
 
 struct StringBuffer *string_buffer_new();
-struct StringBuffer *string_buffer_new_with_size(const long);
+struct StringBuffer *string_buffer_new_with_size(const size_t);
 
 bool string_buffer_clear(struct StringBuffer *);
 void string_buffer_release(struct StringBuffer *);
+
+bool string_buffer_ensure_capacity(struct StringBuffer *, const size_t);
+bool string_buffer_shrink(struct StringBuffer *);
 
 bool string_buffer_append(struct StringBuffer *, char);
 bool string_buffer_append_string(struct StringBuffer *, char *);

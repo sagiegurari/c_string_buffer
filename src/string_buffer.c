@@ -6,6 +6,8 @@
 #include <string.h>
 
 // private functions definitions
+bool _clear(struct StringBuffer *);
+bool _set_capacity(struct StringBuffer *, const size_t);
 void _append_char(struct StringBuffer *, char);
 bool _append_any_type(struct StringBuffer *, const char *, ...);
 
@@ -15,26 +17,27 @@ struct StringBuffer *string_buffer_new()
 }
 
 
-struct StringBuffer *string_buffer_new_with_size(const long initial_size)
+struct StringBuffer *string_buffer_new_with_size(const size_t initial_size)
 {
-  long size = 1;
+  size_t size = 1;
 
-  if (initial_size >= 1)
+  if (initial_size > 0)
   {
     size = initial_size;
   }
 
   struct StringBuffer *buffer = malloc(sizeof(struct StringBuffer));
+
   if (buffer == NULL)
   {
     return(NULL);
   }
 
   buffer->initial_size = size;
-  buffer->content_size = -1;
+  buffer->content_size = 0;
 
   buffer->value = NULL;
-  if (!string_buffer_clear(buffer))
+  if (!_clear(buffer))
   {
     return(NULL);
   }
@@ -56,23 +59,41 @@ bool string_buffer_clear(struct StringBuffer *buffer)
     return(true);
   }
 
-  if (buffer->value != NULL)
-  {
-    free(buffer->value);
-    buffer->value = NULL;
-  }
+  return(_clear(buffer));
+}
 
-  buffer->max_size     = buffer->initial_size;
-  buffer->content_size = 0;
 
-  buffer->value = malloc(buffer->max_size * sizeof(char));
-  if (buffer->value == NULL)
+bool string_buffer_ensure_capacity(struct StringBuffer *buffer, const size_t size)
+{
+  if (buffer == NULL)
   {
-    string_buffer_release(buffer);
     return(false);
   }
 
-  buffer->value[buffer->max_size] = 0;
+  if (size <= buffer->max_size)
+  {
+    return(true);
+  }
+
+  _set_capacity(buffer, size);
+
+  return(true);
+}
+
+
+bool string_buffer_shrink(struct StringBuffer *buffer)
+{
+  if (buffer == NULL)
+  {
+    return(false);
+  }
+
+  if (buffer->content_size == buffer->max_size)
+  {
+    return(true);
+  }
+
+  _set_capacity(buffer, buffer->content_size);
 
   return(true);
 }
@@ -119,8 +140,8 @@ bool string_buffer_append_string(struct StringBuffer *buffer, char *string)
     return(true);
   }
 
-  int length = strlen(string);
-  for (int index = 0; index < length; index++)
+  unsigned int length = strlen(string);
+  for (unsigned int index = 0; index < length; index++)
   {
     _append_char(buffer, string[index]);
   }
@@ -136,8 +157,8 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
     return("");
   }
 
-  unsigned long string_size  = buffer->content_size * sizeof(char);
-  char          *string_copy = malloc(string_size);
+  size_t string_size  = buffer->content_size * sizeof(char);
+  char   *string_copy = malloc(string_size);
   if (string_copy == NULL)
   {
     return(NULL);
@@ -184,15 +205,48 @@ bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value
 }
 
 
+bool _clear(struct StringBuffer *buffer)
+{
+  if (buffer->value != NULL)
+  {
+    free(buffer->value);
+    buffer->value = NULL;
+  }
+
+  buffer->max_size     = buffer->initial_size;
+  buffer->content_size = 0;
+
+  buffer->value = malloc(buffer->max_size * sizeof(char));
+  if (buffer->value == NULL)
+  {
+    string_buffer_release(buffer);
+    return(false);
+  }
+
+  buffer->value[buffer->max_size] = 0;
+
+  return(true);
+}
+
+
+bool _set_capacity(struct StringBuffer *buffer, const size_t size)
+{
+  buffer->max_size = size;
+  buffer->value    = realloc(buffer->value, buffer->max_size);
+
+  // put null at end
+  buffer->value[buffer->max_size] = 0;
+
+  return(true);
+}
+
+
 void _append_char(struct StringBuffer *buffer, char character)
 {
   if (buffer->content_size == buffer->max_size)
   {
-    buffer->max_size = buffer->content_size * 2;
-    buffer->value    = realloc(buffer->value, buffer->max_size);
-
-    // put null at end
-    buffer->value[buffer->content_size * 2] = 0;
+    const size_t new_size = buffer->content_size * 2;
+    _set_capacity(buffer, new_size);
   }
 
   buffer->value[buffer->content_size] = character;
@@ -205,8 +259,15 @@ bool _append_any_type(struct StringBuffer *buffer, const char *format, ...)
   va_list args;
 
   va_start(args, format);
-  int  size = vsnprintf(NULL, 0, format, args) + 1;
-  char *str = malloc(size);
+  const int result = vsnprintf(NULL, 0, format, args) + 1;
+  if (result < 0)
+  {
+    va_end(args);
+    return(false);
+  }
+
+  const size_t size = (size_t)result;
+  char         *str = malloc(size);
 
   vsnprintf(str, size, format, args);
 
