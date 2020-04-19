@@ -32,7 +32,7 @@ void assert_num_equal(size_t value1, size_t value2)
 {
   if (value1 != value2)
   {
-    printf("Assert Failed, value: %u not equals to value: %u", value1, value2);
+    printf("Assert Failed, value: %zu not equals to value: %zu", value1, value2);
     test_fail();
   }
 }
