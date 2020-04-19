@@ -17,5 +17,5 @@ jobs:
         buildDirectory: '{{ runner.workspace }}/target'
     - name: Test
       working-directory: ${{runner.workspace}}/target
-      run: ctest --output-on-failure
+      run: /usr/local/bin/ctest --output-on-failure
 
