@@ -11,12 +11,10 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Generate
-      working-directory: ${{runner.workspace}}/target
-      run: cmake ..
     - name: Build
-      working-directory: ${{runner.workspace}}/target
-      run: make
+      uses: lukka/run-cmake@v2
+      with:
+        buildDirectory: '{{ runner.workspace }}/target'
     - name: Test
       working-directory: ${{runner.workspace}}/target
       run: ctest --output-on-failure
