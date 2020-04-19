@@ -15,8 +15,4 @@ jobs:
       uses: lukka/run-cmake@v2
       with:
         buildDirectory: '{{ runner.workspace }}/target'
-    - name: Test
-      working-directory: ${{runner.workspace}}/target
-      shell: bash
-      run: ctest --output-on-failure
 
