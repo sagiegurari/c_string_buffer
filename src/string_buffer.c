@@ -140,8 +140,8 @@ bool string_buffer_append_string(struct StringBuffer *buffer, char *string)
     return(true);
   }
 
-  unsigned int length = strlen(string);
-  for (unsigned int index = 0; index < length; index++)
+  const size_t length = strlen(string);
+  for (size_t index = 0; index < length; index++)
   {
     _append_char(buffer, string[index]);
   }
