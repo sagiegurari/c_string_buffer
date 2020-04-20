@@ -4,6 +4,11 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+/**
+ * The struct fields should not be accessed directly.
+ * They are exposed mainly for testing purposes but all operations on the struct
+ * must go through the public string_buffer_xxx operations.
+ */
 struct StringBuffer
 {
   size_t initial_size;
