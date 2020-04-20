@@ -4,8 +4,9 @@
 
 void test_impl()
 {
-  struct StringBuffer *buffer = string_buffer_new_with_size(0);
+  struct StringBuffer *buffer = string_buffer_new_with_options(0, true);
 
+  assert_true(buffer->allow_resize);
   assert_num_equal(buffer->initial_size, 1);
   assert_num_equal(buffer->content_size, 0);
   assert_num_equal(buffer->max_size, buffer->initial_size);

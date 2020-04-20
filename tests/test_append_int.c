@@ -4,7 +4,7 @@
 
 void test_impl()
 {
-  struct StringBuffer *buffer = string_buffer_new_with_size(100);
+  struct StringBuffer *buffer = string_buffer_new_with_options(100, true);
 
   int                 value = 150;
 

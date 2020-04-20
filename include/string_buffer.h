@@ -10,10 +10,11 @@ struct StringBuffer
   size_t content_size;
   size_t max_size;
   char   *value;
+  bool   allow_resize;
 };
 
 struct StringBuffer *string_buffer_new();
-struct StringBuffer *string_buffer_new_with_size(const size_t);
+struct StringBuffer *string_buffer_new_with_options(const size_t, const bool);
 
 bool string_buffer_clear(struct StringBuffer *);
 void string_buffer_release(struct StringBuffer *);

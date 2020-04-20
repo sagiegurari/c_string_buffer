@@ -7,7 +7,6 @@
 
 * [Overview](#overview)
 * [Usage](#usage)
-* [API Documentation](https://sagiegurari.github.io/string_buffer/)
 * [Contributing](.github/CONTRIBUTING.md)
 * [Release History](CHANGELOG.md)
 * [License](#license)
@@ -27,7 +26,10 @@ int main()
 {
   // init the buffer with predefined size or with a provided size
   // use string_buffer_new for predefined size
-  struct StringBuffer *buffer = string_buffer_new_with_size(1500);
+  struct StringBuffer *buffer = string_buffer_new_with_options(
+    1500, // initial size
+    true  // allow resizing
+  );
 
   // different append functions
   string_buffer_append(buffer, 'A');
@@ -57,9 +59,6 @@ int main()
   string_buffer_release(buffer);
 }
 ```
-
-## API Documentation
-See full docs at: [API Docs](https://sagiegurari.github.io/string_buffer/)
 
 ## Contributing
 See [contributing guide](.github/CONTRIBUTING.md)

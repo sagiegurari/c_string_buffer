@@ -4,7 +4,7 @@
 
 void test_impl()
 {
-  struct StringBuffer *buffer = string_buffer_new_with_size(10);
+  struct StringBuffer *buffer = string_buffer_new_with_options(10, true);
 
   assert_true(string_buffer_append_string(buffer, "12345"));
   assert_true(string_buffer_append_string(buffer, "abcde"));
