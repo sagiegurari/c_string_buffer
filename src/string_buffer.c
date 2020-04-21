@@ -167,6 +167,19 @@ bool string_buffer_append(struct StringBuffer *buffer, char character)
 
 bool string_buffer_append_string(struct StringBuffer *buffer, char *string)
 {
+  if (string == NULL)
+  {
+    return(true);
+  }
+
+  const size_t length = strlen(string);
+
+  return(string_buffer_append_string_with_options(buffer, string, 0, length));
+}
+
+
+bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char *string, const size_t offset, const size_t length)
+{
   if (buffer == NULL)
   {
     return(false);
@@ -177,8 +190,21 @@ bool string_buffer_append_string(struct StringBuffer *buffer, char *string)
     return(true);
   }
 
-  const size_t length = strlen(string);
-  for (size_t index = 0; index < length; index++)
+  const size_t string_length = strlen(string);
+  if (offset >= string_length)
+  {
+    return(false);
+  }
+
+  size_t read_length = length;
+  if ((string_length - offset) < length)
+  {
+    return(false);
+  }
+
+  read_length = read_length + offset;
+
+  for (size_t index = offset; index < read_length; index++)
   {
     if (!_append_char(buffer, string[index]))
     {

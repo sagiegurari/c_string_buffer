@@ -38,6 +38,12 @@ int main()
   string_buffer_append_bool(buffer, true);
   string_buffer_append_int(buffer, 123);
   string_buffer_append_long_long(buffer, 150);
+  string_buffer_append_string_with_options(
+    buffer,
+    "12345",
+    1, // offset
+    2 // length
+  );
 
   // increase buffer size if needed to ensure capacity
   // and prevent multiple reallocations in case of many
@@ -55,6 +61,8 @@ int main()
   // we can clear the content we have so far and reuse the
   // string buffer instance
   string_buffer_clear(buffer);
+
+  bool is_empty = string_buffer_is_empty(buffer);
 
   // once done, free the buffer
   string_buffer_release(buffer);
