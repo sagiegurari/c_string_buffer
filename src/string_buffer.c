@@ -381,7 +381,7 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
   }
 
   buffer->max_size = size;
-  buffer->value    = realloc(buffer->value, buffer->max_size);
+  buffer->value    = realloc(buffer->value, buffer->max_size * sizeof(char));
 
   // put null at end
   buffer->value[buffer->max_size] = 0;
