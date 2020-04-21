@@ -17,7 +17,6 @@ struct StringBuffer
 // private functions definitions
 bool _clear(struct StringBuffer *);
 bool _set_capacity(struct StringBuffer *, const size_t);
-bool _append_any_type(struct StringBuffer *, const char *, ...);
 
 struct StringBuffer *string_buffer_new()
 {
@@ -388,31 +387,5 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
   buffer->value[buffer->max_size] = 0;
 
   return(true);
-}
-
-
-bool _append_any_type(struct StringBuffer *buffer, const char *format, ...)
-{
-  va_list args;
-
-  va_start(args, format);
-  const int result = vsnprintf(NULL, 0, format, args) + 1;
-  if (result < 0)
-  {
-    va_end(args);
-    return(false);
-  }
-
-  const size_t size = (size_t)result;
-  char         *str = malloc(size);
-
-  vsnprintf(str, size, format, args);
-
-  va_end(args);
-
-  const bool output = string_buffer_append_string(buffer, str);
-  free(str);
-
-  return(output);
 }
 
