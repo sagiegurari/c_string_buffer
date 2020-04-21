@@ -4,22 +4,16 @@
 #include <stdbool.h>
 #include <stddef.h>
 
-/**
- * The struct fields should not be accessed directly.
- * They are exposed mainly for testing purposes but all operations on the struct
- * must go through the public string_buffer_xxx operations.
- */
-struct StringBuffer
-{
-  size_t initial_size;
-  size_t content_size;
-  size_t max_size;
-  char   *value;
-  bool   allow_resize;
-};
+struct StringBuffer;
 
 struct StringBuffer *string_buffer_new();
 struct StringBuffer *string_buffer_new_with_options(const size_t, const bool);
+
+bool string_buffer_is_empty(struct StringBuffer *);
+size_t string_buffer_get_initial_size(struct StringBuffer *);
+size_t string_buffer_get_content_size(struct StringBuffer *);
+size_t string_buffer_get_max_size(struct StringBuffer *);
+bool  string_buffer_is_allow_resize(struct StringBuffer *);
 
 bool string_buffer_clear(struct StringBuffer *);
 void string_buffer_release(struct StringBuffer *);

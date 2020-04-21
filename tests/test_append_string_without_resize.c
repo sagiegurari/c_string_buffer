@@ -10,9 +10,9 @@ void test_impl()
   assert_true(string_buffer_append_string(buffer, "abcde"));
   assert_true(!string_buffer_append_string(buffer, "ABCDE"));
 
-  assert_num_equal(buffer->initial_size, 10);
-  assert_num_equal(buffer->content_size, 10);
-  assert_num_equal(buffer->max_size, 10);
+  assert_num_equal(string_buffer_get_initial_size(buffer), 10);
+  assert_num_equal(string_buffer_get_content_size(buffer), 10);
+  assert_num_equal(string_buffer_get_max_size(buffer), 10);
   assert_string_equal(string_buffer_to_string(buffer), "12345abcde");
 }
 

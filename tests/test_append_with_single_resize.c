@@ -10,9 +10,9 @@ void test_impl()
   assert_true(string_buffer_append(buffer, '2'));
   assert_true(string_buffer_append(buffer, '3'));
 
-  assert_num_equal(buffer->initial_size, 2);
-  assert_num_equal(buffer->content_size, 3);
-  assert_num_equal(buffer->max_size, 4);
+  assert_num_equal(string_buffer_get_initial_size(buffer), 2);
+  assert_num_equal(string_buffer_get_content_size(buffer), 3);
+  assert_num_equal(string_buffer_get_max_size(buffer), 4);
   assert_string_equal(string_buffer_to_string(buffer), "123");
 }
 

@@ -8,16 +8,16 @@ void test_impl()
 
   assert_true(string_buffer_append_string(buffer, "12345"));
 
-  assert_num_equal(buffer->initial_size, 1);
-  assert_num_equal(buffer->content_size, 5);
-  assert_num_equal(buffer->max_size, 8);
+  assert_num_equal(string_buffer_get_initial_size(buffer), 1);
+  assert_num_equal(string_buffer_get_content_size(buffer), 5);
+  assert_num_equal(string_buffer_get_max_size(buffer), 8);
   assert_string_equal(string_buffer_to_string(buffer), "12345");
 
   assert_true(string_buffer_ensure_capacity(buffer, 100));
 
-  assert_num_equal(buffer->initial_size, 1);
-  assert_num_equal(buffer->content_size, 5);
-  assert_num_equal(buffer->max_size, 100);
+  assert_num_equal(string_buffer_get_initial_size(buffer), 1);
+  assert_num_equal(string_buffer_get_content_size(buffer), 5);
+  assert_num_equal(string_buffer_get_max_size(buffer), 100);
   assert_string_equal(string_buffer_to_string(buffer), "12345");
 }
 

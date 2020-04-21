@@ -5,6 +5,15 @@
 #include <stdlib.h>
 #include <string.h>
 
+struct StringBuffer
+{
+  size_t initial_size;
+  size_t content_size;
+  size_t max_size;
+  char   *value;
+  bool   allow_resize;
+};
+
 // private functions definitions
 bool _clear(struct StringBuffer *);
 bool _set_capacity(struct StringBuffer *, const size_t);
@@ -46,6 +55,36 @@ struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, c
   buffer->allow_resize = allow_resize;
 
   return(buffer);
+}
+
+
+bool string_buffer_is_empty(struct StringBuffer *buffer)
+{
+  return(buffer->content_size == 0);
+}
+
+
+size_t string_buffer_get_initial_size(struct StringBuffer *buffer)
+{
+  return(buffer->initial_size);
+}
+
+
+size_t string_buffer_get_content_size(struct StringBuffer *buffer)
+{
+  return(buffer->content_size);
+}
+
+
+size_t string_buffer_get_max_size(struct StringBuffer *buffer)
+{
+  return(buffer->max_size);
+}
+
+
+bool  string_buffer_is_allow_resize(struct StringBuffer *buffer)
+{
+  return(buffer->allow_resize);
 }
 
 
