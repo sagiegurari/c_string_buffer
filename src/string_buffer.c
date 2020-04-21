@@ -20,7 +20,7 @@ bool _set_capacity(struct StringBuffer *, const size_t);
 
 struct StringBuffer *string_buffer_new()
 {
-  return(string_buffer_new_with_options(10000, true));
+  return(string_buffer_new_with_options(10240, true));
 }
 
 
