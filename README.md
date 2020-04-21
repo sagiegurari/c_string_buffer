@@ -1,7 +1,7 @@
 # string_buffer
 
 [![Continuous Integration](https://github.com/sagiegurari/c_string_buffer/workflows/Continuous%20Integration/badge.svg?branch=master)](https://github.com/sagiegurari/c_string_buffer/actions)
-[![Release](https://img.shields.io/github/v/tag/sagiegurari/c_string_buffer)](https://github.com/sagiegurari/c_string_buffer/releases)
+[![Release](https://img.shields.io/github/v/release/sagiegurari/c_string_buffer?label=Release)](https://github.com/sagiegurari/c_string_buffer/releases)
 [![license](https://img.shields.io/github/license/sagiegurari/c_string_buffer)](https://github.com/sagiegurari/c_string_buffer/blob/master/LICENSE)
 
 > A simple string buffer for C.
