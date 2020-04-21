@@ -28,7 +28,7 @@ int main()
   // init the buffer with predefined size or with a provided size
   // use string_buffer_new for predefined size
   struct StringBuffer *buffer = string_buffer_new_with_options(
-    1500, // initial size
+    1024, // initial size
     true  // allow resizing
   );
 
@@ -48,7 +48,7 @@ int main()
   // increase buffer size if needed to ensure capacity
   // and prevent multiple reallocations in case of many
   // append operations
-  string_buffer_ensure_capacity(buffer, 10000);
+  string_buffer_ensure_capacity(buffer, 10240);
 
   // shrink the internal buffer to fit the exact value
   // of the current content and prevent using more memory
