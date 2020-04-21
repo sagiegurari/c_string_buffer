@@ -276,7 +276,19 @@ bool string_buffer_append_bool(struct StringBuffer *buffer, bool value)
 
 bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 {
-  return(_append_any_type(buffer, "%hi", value));
+  char      *string = malloc(7);
+  const int length  = snprintf(string, 7, "%hi", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
