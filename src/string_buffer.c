@@ -17,7 +17,6 @@ struct StringBuffer
 // private functions definitions
 bool _clear(struct StringBuffer *);
 bool _set_capacity(struct StringBuffer *, const size_t);
-bool _append_char(struct StringBuffer *, char);
 bool _append_any_type(struct StringBuffer *, const char *, ...);
 
 struct StringBuffer *string_buffer_new()
@@ -161,7 +160,20 @@ bool string_buffer_append(struct StringBuffer *buffer, char character)
     return(false);
   }
 
-  return(_append_char(buffer, character));
+  if (buffer->content_size == buffer->max_size)
+  {
+    const size_t new_size = buffer->content_size * 2;
+    if (!_set_capacity(buffer, new_size))
+    {
+      return(false);
+    }
+  }
+
+  buffer->value[buffer->content_size] = character;
+  buffer->content_size++;
+  buffer->value[buffer->content_size] = 0;
+
+  return(true);
 }
 
 
@@ -196,24 +208,39 @@ bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char 
     return(false);
   }
 
-  size_t read_length = length;
   if ((string_length - offset) < length)
   {
     return(false);
   }
 
-  read_length = read_length + offset;
+  const size_t loop_end = length + offset;
 
-  for (size_t index = offset; index < read_length; index++)
+  const size_t size_left = buffer->max_size - buffer->content_size;
+  if (size_left < length)
   {
-    if (!_append_char(buffer, string[index]))
+    const size_t min_new_size = buffer->content_size + length;
+    size_t       new_size     = buffer->max_size * 2;
+    while (new_size < min_new_size)
+    {
+      new_size = new_size * 2;
+    }
+
+    if (!_set_capacity(buffer, new_size))
     {
       return(false);
     }
   }
 
+  for (size_t index = offset, content_index = 0; index < loop_end; index++, content_index++)
+  {
+    buffer->value[buffer->content_size] = string[index];
+    buffer->content_size++;
+  }
+
+  buffer->value[buffer->content_size] = 0;
+
   return(true);
-}
+} /* string_buffer_append_string_with_options */
 
 
 char *string_buffer_to_string(struct StringBuffer *buffer)
@@ -307,24 +334,6 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
 
   // put null at end
   buffer->value[buffer->max_size] = 0;
-
-  return(true);
-}
-
-
-bool _append_char(struct StringBuffer *buffer, char character)
-{
-  if (buffer->content_size == buffer->max_size)
-  {
-    const size_t new_size = buffer->content_size * 2;
-    if (!_set_capacity(buffer, new_size))
-    {
-      return(false);
-    }
-  }
-
-  buffer->value[buffer->content_size] = character;
-  buffer->content_size++;
 
   return(true);
 }
