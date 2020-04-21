@@ -294,19 +294,55 @@ bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 
 bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 {
-  return(_append_any_type(buffer, "%i", value));
+  char      *string = malloc(12);
+  const int length  = snprintf(string, 7, "%i", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
 bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 {
-  return(_append_any_type(buffer, "%li", value));
+  char      *string = malloc(12);
+  const int length  = snprintf(string, 7, "%li", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
 bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value)
 {
-  return(_append_any_type(buffer, "%lli", value));
+  char      *string = malloc(21);
+  const int length  = snprintf(string, 7, "%lli", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
