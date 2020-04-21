@@ -11,8 +11,18 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
+    - name: Setup Env
+      run: cmake -E make_directory ${{runner.workspace}}/target
+    - name: Configure
+      shell: bash
+      working-directory: ${{runner.workspace}}/target
+      run: cmake ..
     - name: Build
-      uses: lukka/run-cmake@v2
-      with:
-        buildDirectory: '{{ runner.workspace }}/target'
+      shell: bash
+      working-directory: ${{runner.workspace}}/target
+      run: cmake --build .
+    - name: Test
+      shell: bash
+      working-directory: ${{runner.workspace}}/target
+      run: ctest --output-on-failure
 
