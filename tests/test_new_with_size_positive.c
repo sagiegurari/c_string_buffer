@@ -11,7 +11,7 @@ void test_impl()
   //assert_num_equal(string_buffer_get_initial_size(buffer), 600);
   //assert_num_equal(string_buffer_get_content_size(buffer), 0);
   //assert_num_equal(string_buffer_get_max_size(buffer), string_buffer_get_initial_size(buffer));
-  //assert_string_equal(string_buffer_to_string(buffer), "");
+  assert_string_equal(string_buffer_to_string(buffer), "");
 }
 
 
