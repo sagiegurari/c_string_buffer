@@ -19,7 +19,9 @@ You can run the following command locally to ensure the build will pass:
 ```sh
 mkdir ./target
 cd ./target
-cmake .. && make && ctest --output-on-failure
+cmake ..
+make
+ctest -C Release --output-on-failure
 ```
 
 * There are many automatic unit tests as part of the library which provide full coverage of the functionality.<br>Any fix/enhancement must come with a set of tests to ensure it's working well.
