@@ -16,7 +16,7 @@ jobs:
     - name: Configure
       shell: bash
       working-directory: ${{runner.workspace}}/target
-      run: cmake ..
+      run: cmake $GITHUB_WORKSPACE
     - name: Build
       shell: bash
       working-directory: ${{runner.workspace}}/target
