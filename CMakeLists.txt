@@ -4,7 +4,9 @@ cmake_minimum_required (VERSION 3.7)
 project (string_buffer C)
 
 set(CMAKE_BUILD_TYPE Release)
-set(X_CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wcast-align -Wunused -Wshadow -Wpedantic")
+if(NOT WIN32)
+  set(X_CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wcast-align -Wunused -Wshadow -Wpedantic")
+endif()
 
 set(X_CMAKE_PROJECT_ROOT_DIR ${CMAKE_BINARY_DIR}/..)
 
@@ -30,7 +32,9 @@ endif()
 
 # create static library
 add_library(string_buffer STATIC ${SOURCES})
-set_target_properties(string_buffer PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS} -Wconversion")
+if(NOT WIN32)
+  set_target_properties(string_buffer PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS} -Wconversion")
+endif()
 
 # tests
 enable_testing()

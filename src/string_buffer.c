@@ -17,11 +17,10 @@ struct StringBuffer
 // private functions definitions
 bool _clear(struct StringBuffer *);
 bool _set_capacity(struct StringBuffer *, const size_t);
-bool _append_any_type(struct StringBuffer *, const char *, ...);
 
 struct StringBuffer *string_buffer_new()
 {
-  return(string_buffer_new_with_options(10000, true));
+  return(string_buffer_new_with_options(10240, true));
 }
 
 
@@ -276,25 +275,77 @@ bool string_buffer_append_bool(struct StringBuffer *buffer, bool value)
 
 bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 {
-  return(_append_any_type(buffer, "%hi", value));
+  const size_t max_length = 7;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%hi", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
 bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 {
-  return(_append_any_type(buffer, "%i", value));
+  const size_t max_length = 12;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%i", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
 bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 {
-  return(_append_any_type(buffer, "%li", value));
+  const size_t max_length = 12;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%li", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
 bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value)
 {
-  return(_append_any_type(buffer, "%lli", value));
+  const size_t max_length = 21;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%lli", value);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
+
+  free(string);
+
+  return(result);
 }
 
 
@@ -330,37 +381,11 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
   }
 
   buffer->max_size = size;
-  buffer->value    = realloc(buffer->value, buffer->max_size);
+  buffer->value    = realloc(buffer->value, buffer->max_size * sizeof(char));
 
   // put null at end
   buffer->value[buffer->max_size] = 0;
 
   return(true);
-}
-
-
-bool _append_any_type(struct StringBuffer *buffer, const char *format, ...)
-{
-  va_list args;
-
-  va_start(args, format);
-  const int result = vsnprintf(NULL, 0, format, args) + 1;
-  if (result < 0)
-  {
-    va_end(args);
-    return(false);
-  }
-
-  const size_t size = (size_t)result;
-  char         *str = malloc(size);
-
-  vsnprintf(str, size, format, args);
-
-  va_end(args);
-
-  const bool output = string_buffer_append_string(buffer, str);
-  free(str);
-
-  return(output);
 }
 

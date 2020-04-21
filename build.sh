@@ -10,5 +10,5 @@ echo Creating Target Directory...
 mkdir ./target
 
 cd ./target
-(cmake .. && make && ctest --output-on-failure) || true
+(cmake .. && make && ctest -C Release --output-on-failure) || true
 cd -
