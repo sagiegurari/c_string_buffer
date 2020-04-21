@@ -276,8 +276,9 @@ bool string_buffer_append_bool(struct StringBuffer *buffer, bool value)
 
 bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 {
-  char      *string = malloc(7);
-  const int length  = snprintf(string, 7, "%hi", value);
+  const size_t max_length = 7;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%hi", value);
 
   if (length <= 0)
   {
@@ -294,8 +295,9 @@ bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 
 bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 {
-  char      *string = malloc(12);
-  const int length  = snprintf(string, 7, "%i", value);
+  const size_t max_length = 12;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%i", value);
 
   if (length <= 0)
   {
@@ -312,8 +314,9 @@ bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 
 bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 {
-  char      *string = malloc(12);
-  const int length  = snprintf(string, 7, "%li", value);
+  const size_t max_length = 12;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%li", value);
 
   if (length <= 0)
   {
@@ -330,8 +333,9 @@ bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 
 bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value)
 {
-  char      *string = malloc(21);
-  const int length  = snprintf(string, 7, "%lli", value);
+  const size_t max_length = 21;
+  char         *string    = malloc(max_length);
+  const int    length     = snprintf(string, max_length, "%lli", value);
 
   if (length <= 0)
   {
