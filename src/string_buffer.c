@@ -12,6 +12,7 @@ struct StringBuffer
   size_t max_size;
   char   *value;
   bool   allow_resize;
+  char   *work_buffer;
 };
 
 // private functions definitions
@@ -42,6 +43,7 @@ struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, c
 
   buffer->initial_size = size;
   buffer->content_size = 0;
+  buffer->work_buffer  = malloc(21 * sizeof(char));
 
   buffer->value = NULL;
   if (!_clear(buffer))
@@ -275,18 +277,19 @@ bool string_buffer_append_bool(struct StringBuffer *buffer, bool value)
 
 bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 {
-  const size_t max_length = 7;
-  char         *string    = malloc(max_length);
-  const int    length     = snprintf(string, max_length, "%hi", value);
+  if (buffer == NULL)
+  {
+    return(false);
+  }
+
+  const int length = snprintf(buffer->work_buffer, 7, "%hi", value);
 
   if (length <= 0)
   {
     return(false);
   }
 
-  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
-
-  free(string);
+  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
 
   return(result);
 }
@@ -294,18 +297,19 @@ bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 
 bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 {
-  const size_t max_length = 12;
-  char         *string    = malloc(max_length);
-  const int    length     = snprintf(string, max_length, "%i", value);
+  if (buffer == NULL)
+  {
+    return(false);
+  }
+
+  const int length = snprintf(buffer->work_buffer, 12, "%i", value);
 
   if (length <= 0)
   {
     return(false);
   }
 
-  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
-
-  free(string);
+  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
 
   return(result);
 }
@@ -313,18 +317,19 @@ bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 
 bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 {
-  const size_t max_length = 12;
-  char         *string    = malloc(max_length);
-  const int    length     = snprintf(string, max_length, "%li", value);
+  if (buffer == NULL)
+  {
+    return(false);
+  }
+
+  const int length = snprintf(buffer->work_buffer, 12, "%li", value);
 
   if (length <= 0)
   {
     return(false);
   }
 
-  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
-
-  free(string);
+  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
 
   return(result);
 }
@@ -332,18 +337,19 @@ bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 
 bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value)
 {
-  const size_t max_length = 21;
-  char         *string    = malloc(max_length);
-  const int    length     = snprintf(string, max_length, "%lli", value);
+  if (buffer == NULL)
+  {
+    return(false);
+  }
+
+  const int length = snprintf(buffer->work_buffer, 21, "%lli", value);
 
   if (length <= 0)
   {
     return(false);
   }
 
-  const bool result = string_buffer_append_string_with_options(buffer, string, 0, (size_t)length);
-
-  free(string);
+  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
 
   return(result);
 }
