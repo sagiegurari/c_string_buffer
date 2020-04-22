@@ -9,6 +9,7 @@ struct StringBuffer;
 struct StringBuffer *string_buffer_new();
 struct StringBuffer *string_buffer_new_with_options(const size_t, const bool);
 
+bool string_buffer_is_released(struct StringBuffer *);
 bool string_buffer_is_empty(struct StringBuffer *);
 size_t string_buffer_get_initial_size(struct StringBuffer *);
 size_t string_buffer_get_content_size(struct StringBuffer *);
