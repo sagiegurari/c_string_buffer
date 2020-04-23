@@ -36,8 +36,14 @@ int main()
   string_buffer_append(buffer, 'A');
   string_buffer_append_string(buffer, "12345");
   string_buffer_append_bool(buffer, true);
-  string_buffer_append_int(buffer, 123);
+  string_buffer_append_short(buffer, 150);
+  string_buffer_append_unsigned_short(buffer, 150);
+  string_buffer_append_int(buffer, 150);
+  string_buffer_append_unsigned_int(buffer, 150);
+  string_buffer_append_long(buffer, 150);
+  string_buffer_append_unsigned_long(buffer, 150);
   string_buffer_append_long_long(buffer, 150);
+  string_buffer_append_unsigned_long_long(buffer, 150);
   string_buffer_append_string_with_options(
     buffer,
     "12345",
