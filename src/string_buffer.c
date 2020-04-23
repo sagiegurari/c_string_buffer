@@ -317,6 +317,30 @@ bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value
 }
 
 
+bool string_buffer_append_unsigned_short(struct StringBuffer *buffer, unsigned short value)
+{
+  return(_add_numeric_type(buffer, 7, "%hu", value));
+}
+
+
+bool string_buffer_append_unsigned_int(struct StringBuffer *buffer, unsigned int value)
+{
+  return(_add_numeric_type(buffer, 12, "%u", value));
+}
+
+
+bool string_buffer_append_unsigned_long(struct StringBuffer *buffer, unsigned long value)
+{
+  return(_add_numeric_type(buffer, 12, "%lu", value));
+}
+
+
+bool string_buffer_append_unsigned_long_long(struct StringBuffer *buffer, unsigned long long value)
+{
+  return(_add_numeric_type(buffer, 21, "%llu", value));
+}
+
+
 bool _clear(struct StringBuffer *buffer)
 {
   if (string_buffer_is_released(buffer))
