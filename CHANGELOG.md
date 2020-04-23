@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.1.1
+### v0.1.1 (2020-04-23)
 
 * New string_buffer_is_released function.
 * New append_unsigned_xxxx functions.
