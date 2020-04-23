@@ -22,6 +22,8 @@ void string_buffer_release(struct StringBuffer *);
 bool string_buffer_ensure_capacity(struct StringBuffer *, const size_t);
 bool string_buffer_shrink(struct StringBuffer *);
 
+char *string_buffer_to_string(struct StringBuffer *);
+
 bool string_buffer_append(struct StringBuffer *, char);
 bool string_buffer_append_string(struct StringBuffer *, char *);
 bool string_buffer_append_string_with_options(struct StringBuffer *, char *, const size_t /* offset */, const size_t /* length */);
@@ -30,8 +32,10 @@ bool string_buffer_append_short(struct StringBuffer *, short);
 bool string_buffer_append_int(struct StringBuffer *, int);
 bool string_buffer_append_long(struct StringBuffer *, long);
 bool string_buffer_append_long_long(struct StringBuffer *, long long);
-
-char *string_buffer_to_string(struct StringBuffer *);
+bool string_buffer_append_unsigned_short(struct StringBuffer *, unsigned short);
+bool string_buffer_append_unsigned_int(struct StringBuffer *, unsigned int);
+bool string_buffer_append_unsigned_long(struct StringBuffer *, unsigned long);
+bool string_buffer_append_unsigned_long_long(struct StringBuffer *, unsigned long long);
 
 #endif
 

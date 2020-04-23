@@ -19,6 +19,7 @@ struct StringBuffer
 // private functions definitions
 bool _clear(struct StringBuffer *);
 bool _set_capacity(struct StringBuffer *, const size_t);
+bool _add_numeric_type(struct StringBuffer *, const size_t, const char *, ...);
 
 struct StringBuffer *string_buffer_new()
 {
@@ -294,81 +295,49 @@ bool string_buffer_append_bool(struct StringBuffer *buffer, bool value)
 
 bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 {
-  if (string_buffer_is_released(buffer))
-  {
-    return(false);
-  }
-
-  const int length = snprintf(buffer->work_buffer, 7, "%hi", value);
-
-  if (length <= 0)
-  {
-    return(false);
-  }
-
-  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
-
-  return(result);
+  return(_add_numeric_type(buffer, 7, "%hi", value));
 }
 
 
 bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 {
-  if (string_buffer_is_released(buffer))
-  {
-    return(false);
-  }
-
-  const int length = snprintf(buffer->work_buffer, 12, "%i", value);
-
-  if (length <= 0)
-  {
-    return(false);
-  }
-
-  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
-
-  return(result);
+  return(_add_numeric_type(buffer, 12, "%i", value));
 }
 
 
 bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 {
-  if (string_buffer_is_released(buffer))
-  {
-    return(false);
-  }
-
-  const int length = snprintf(buffer->work_buffer, 12, "%li", value);
-
-  if (length <= 0)
-  {
-    return(false);
-  }
-
-  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
-
-  return(result);
+  return(_add_numeric_type(buffer, 12, "%li", value));
 }
 
 
 bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value)
 {
-  if (string_buffer_is_released(buffer))
-  {
-    return(false);
-  }
+  return(_add_numeric_type(buffer, 21, "%lli", value));
+}
 
-  const int length = snprintf(buffer->work_buffer, 21, "%lli", value);
 
-  if (length <= 0)
-  {
-    return(false);
-  }
+bool string_buffer_append_unsigned_short(struct StringBuffer *buffer, unsigned short value)
+{
+  return(_add_numeric_type(buffer, 7, "%hu", value));
+}
 
-  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
 
-  return(result);
+bool string_buffer_append_unsigned_int(struct StringBuffer *buffer, unsigned int value)
+{
+  return(_add_numeric_type(buffer, 12, "%u", value));
+}
+
+
+bool string_buffer_append_unsigned_long(struct StringBuffer *buffer, unsigned long value)
+{
+  return(_add_numeric_type(buffer, 12, "%lu", value));
+}
+
+
+bool string_buffer_append_unsigned_long_long(struct StringBuffer *buffer, unsigned long long value)
+{
+  return(_add_numeric_type(buffer, 21, "%llu", value));
 }
 
 
@@ -415,5 +384,28 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
   buffer->value[buffer->max_size] = 0;
 
   return(true);
+}
+
+
+bool _add_numeric_type(struct StringBuffer *buffer, const size_t size, const char *format, ...)
+{
+  if (string_buffer_is_released(buffer))
+  {
+    return(false);
+  }
+
+  va_list   args;
+  va_start(args, format);
+  const int length = vsnprintf(buffer->work_buffer, size, format, args);
+  va_end(args);
+
+  if (length <= 0)
+  {
+    return(false);
+  }
+
+  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
+
+  return(result);
 }
 
