@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+#define WORK_BUFFER_SIZE    21
+
 struct StringBuffer
 {
   bool   released;
@@ -19,7 +21,7 @@ struct StringBuffer
 // private functions definitions
 bool _clear(struct StringBuffer *);
 bool _set_capacity(struct StringBuffer *, const size_t);
-bool _add_numeric_type(struct StringBuffer *, const size_t, const char *, ...);
+bool _add_numeric_type(struct StringBuffer *, const char *, ...);
 
 struct StringBuffer *string_buffer_new()
 {
@@ -46,7 +48,7 @@ struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, c
   buffer->released     = false;
   buffer->initial_size = size;
   buffer->content_size = 0;
-  buffer->work_buffer  = malloc(21 * sizeof(char));
+  buffer->work_buffer  = malloc(WORK_BUFFER_SIZE * sizeof(char));
 
   buffer->value = NULL;
   if (!_clear(buffer))
@@ -295,49 +297,49 @@ bool string_buffer_append_bool(struct StringBuffer *buffer, bool value)
 
 bool string_buffer_append_short(struct StringBuffer *buffer, short value)
 {
-  return(_add_numeric_type(buffer, 7, "%hi", value));
+  return(_add_numeric_type(buffer, "%hi", value));
 }
 
 
 bool string_buffer_append_int(struct StringBuffer *buffer, int value)
 {
-  return(_add_numeric_type(buffer, 12, "%i", value));
+  return(_add_numeric_type(buffer, "%i", value));
 }
 
 
 bool string_buffer_append_long(struct StringBuffer *buffer, long value)
 {
-  return(_add_numeric_type(buffer, 12, "%li", value));
+  return(_add_numeric_type(buffer, "%li", value));
 }
 
 
 bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value)
 {
-  return(_add_numeric_type(buffer, 21, "%lli", value));
+  return(_add_numeric_type(buffer, "%lli", value));
 }
 
 
 bool string_buffer_append_unsigned_short(struct StringBuffer *buffer, unsigned short value)
 {
-  return(_add_numeric_type(buffer, 7, "%hu", value));
+  return(_add_numeric_type(buffer, "%hu", value));
 }
 
 
 bool string_buffer_append_unsigned_int(struct StringBuffer *buffer, unsigned int value)
 {
-  return(_add_numeric_type(buffer, 12, "%u", value));
+  return(_add_numeric_type(buffer, "%u", value));
 }
 
 
 bool string_buffer_append_unsigned_long(struct StringBuffer *buffer, unsigned long value)
 {
-  return(_add_numeric_type(buffer, 12, "%lu", value));
+  return(_add_numeric_type(buffer, "%lu", value));
 }
 
 
 bool string_buffer_append_unsigned_long_long(struct StringBuffer *buffer, unsigned long long value)
 {
-  return(_add_numeric_type(buffer, 21, "%llu", value));
+  return(_add_numeric_type(buffer, "%llu", value));
 }
 
 
@@ -387,7 +389,7 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
 }
 
 
-bool _add_numeric_type(struct StringBuffer *buffer, const size_t size, const char *format, ...)
+bool _add_numeric_type(struct StringBuffer *buffer, const char *format, ...)
 {
   if (string_buffer_is_released(buffer))
   {
@@ -396,7 +398,7 @@ bool _add_numeric_type(struct StringBuffer *buffer, const size_t size, const cha
 
   va_list   args;
   va_start(args, format);
-  const int length = vsnprintf(buffer->work_buffer, size, format, args);
+  const int length = vsnprintf(buffer->work_buffer, WORK_BUFFER_SIZE, format, args);
   va_end(args);
 
   if (length <= 0)
