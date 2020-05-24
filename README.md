@@ -1,6 +1,6 @@
 # string_buffer
 
-[![Continuous Integration](https://github.com/sagiegurari/c_string_buffer/workflows/Continuous%20Integration/badge.svg?branch=master)](https://github.com/sagiegurari/c_string_buffer/actions)
+[![CI](https://github.com/sagiegurari/c_string_buffer/workflows/CI/badge.svg?branch=master)](https://github.com/sagiegurari/c_string_buffer/actions)
 [![Release](https://img.shields.io/github/v/release/sagiegurari/c_string_buffer)](https://github.com/sagiegurari/c_string_buffer/releases)
 [![license](https://img.shields.io/github/license/sagiegurari/c_string_buffer)](https://github.com/sagiegurari/c_string_buffer/blob/master/LICENSE)
 
