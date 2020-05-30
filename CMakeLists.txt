@@ -18,7 +18,7 @@ include_directories(include)
 
 # define all sources
 file(GLOB SOURCES "src/*.c")
-file(GLOB HEADER_SORUCES "include/*.h")
+file(GLOB HEADER_SOURCES "include/*.h")
 file(GLOB TEST_SOURCES "tests/*")
 file(GLOB COMMON_TEST_SOURCES "tests/test.*")
 
@@ -27,7 +27,7 @@ if(DEFINED ENV{X_CMAKE_UNCRUSTIFY_ENABLED})
   add_custom_target(uncrustify ALL
     uncrustify
     -c ${X_CMAKE_PROJECT_ROOT_DIR}/uncrustify.cfg
-    --no-backup ${SOURCES} ${HEADER_SORUCES} ${TEST_SOURCES})
+    --no-backup ${SOURCES} ${HEADER_SOURCES} ${TEST_SOURCES})
 endif()
 
 # create static library
