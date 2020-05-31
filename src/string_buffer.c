@@ -280,8 +280,9 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
   }
 
   buffer->value[content_size] = 0;
+  string_copy[content_size]   = 0;
 
-  string_copy               = strncpy(string_copy, buffer->value, content_size);
+  memcpy(string_copy, buffer->value, memory_size);
   string_copy[content_size] = 0;
 
   return(string_copy);

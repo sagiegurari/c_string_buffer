@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.1.2 (2020-05-31)
+
+* Memory copy changes to improve stability and performance.
+
 ### v0.1.1 (2020-04-23)
 
 * New string_buffer_is_released function.
