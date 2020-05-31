@@ -271,17 +271,18 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
     return("");
   }
 
-  size_t string_size  = buffer->content_size * sizeof(char);
-  char   *string_copy = malloc(string_size);
+  size_t content_size = buffer->content_size;
+  size_t memory_size  = content_size * sizeof(char);
+  char   *string_copy = malloc(memory_size);
   if (string_copy == NULL)
   {
     return(NULL);
   }
 
-  buffer->value[string_size] = 0;
+  buffer->value[content_size] = 0;
 
-  string_copy              = strcpy(string_copy, buffer->value);
-  string_copy[string_size] = 0;
+  string_copy               = strncpy(string_copy, buffer->value, content_size);
+  string_copy[content_size] = 0;
 
   return(string_copy);
 }
