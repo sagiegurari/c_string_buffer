@@ -3,6 +3,10 @@ cmake_minimum_required (VERSION 3.7)
 
 project (string_buffer C)
 
+# include shared utilities
+execute_process(COMMAND git clone https://github.com/sagiegurari/cmake-modules.git)
+include("target/cmake-modules/src/utils.cmake")
+
 set(CMAKE_BUILD_TYPE Release)
 if(NOT WIN32)
   set(X_CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Werror -Wall -Wextra -Wcast-align -Wunused -Wshadow -Wpedantic")
@@ -40,13 +44,7 @@ endif()
 enable_testing()
 
 macro(setup_test)
-  message("Adding Test: ${ARGV0}")
-  add_executable(test_${ARGV0} tests/test_${ARGV0}.c ${COMMON_TEST_SOURCES})
-  target_link_libraries(test_${ARGV0} string_buffer)
-  set_target_properties(test_${ARGV0} PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS}")
-  add_test(NAME ${ARGV0}
-    WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/bin
-    COMMAND test_${ARGV0})
+  utils_setup_c_test(${ARGV0} "${COMMON_TEST_SOURCES}" "${X_CMAKE_C_FLAGS}" "${CMAKE_BINARY_DIR}/bin")
 endmacro(setup_test)
 
 setup_test("new")

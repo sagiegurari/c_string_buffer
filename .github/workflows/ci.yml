@@ -15,6 +15,11 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup Env
       run: cmake -E make_directory ${{runner.workspace}}/target
+    - name: Checkout cmake-modules
+      uses: actions/checkout@v2
+      with:
+        repository: sagiegurari/cmake-modules
+        path: target/cmake-modules
     - name: Configure
       shell: bash
       working-directory: ${{runner.workspace}}/target
