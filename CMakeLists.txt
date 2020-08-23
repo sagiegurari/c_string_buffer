@@ -4,7 +4,9 @@ cmake_minimum_required (VERSION 3.7)
 project (string_buffer C)
 
 # include shared utilities
-execute_process(COMMAND git clone https://github.com/sagiegurari/cmake-modules.git)
+if(NOT EXISTS "target/cmake-modules/src/utils.cmake")
+  execute_process(COMMAND git clone https://github.com/sagiegurari/cmake-modules.git)
+endif()
 include("target/cmake-modules/src/utils.cmake")
 
 set(CMAKE_BUILD_TYPE Release)
@@ -44,7 +46,12 @@ endif()
 enable_testing()
 
 macro(setup_test)
-  utils_setup_c_test(${ARGV0} "${COMMON_TEST_SOURCES}" "${X_CMAKE_C_FLAGS}" "${CMAKE_BINARY_DIR}/bin")
+  utils_setup_c_test(
+    NAME ${ARGV0}
+    ADDITIONAL_SOURCES "${COMMON_TEST_SOURCES}"
+    COMPILATION_FLAGS "${X_CMAKE_C_FLAGS}"
+    BINARY_DIRECTORY "${CMAKE_BINARY_DIR}/bin"
+  )
 endmacro(setup_test)
 
 setup_test("new")
