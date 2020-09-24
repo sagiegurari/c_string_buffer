@@ -1,5 +1,6 @@
 #include "string_buffer.h"
 #include "test.h"
+#include <stdlib.h>
 
 
 void test_impl()
@@ -11,7 +12,12 @@ void test_impl()
   assert_num_equal(string_buffer_get_initial_size(buffer), 10240);
   assert_num_equal(string_buffer_get_content_size(buffer), 0);
   assert_num_equal(string_buffer_get_max_size(buffer), string_buffer_get_initial_size(buffer));
-  assert_string_equal(string_buffer_to_string(buffer), "");
+
+  char *content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "");
+
+  string_buffer_release(buffer);
+  free(content);
 }
 
 
