@@ -159,7 +159,7 @@ void string_buffer_release(struct StringBuffer *buffer)
   if (buffer->value != NULL)
   {
     buffer->value[buffer->content_size] = 0;                                                                      //todo ???
-    printf("free, size: %d srln: %u content: %si\n", buffer->content_size, strlen(buffer->value), buffer->value); //todo remo
+    printf("free, size: %u srln: %u content: %si\n", buffer->content_size, strlen(buffer->value), buffer->value); //todo remo
     //free(buffer->value);
     buffer->value = NULL;
   }
@@ -393,7 +393,7 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
   buffer->value[buffer->content_size] = 0; // ensure we null at end of content
 
   buffer->max_size = size;
-  printf("size: %d strln: %u content: %s\n", buffer->content_size, strlen(buffer->value), buffer->value);//todo remo
+  printf("size: %u strln: %u content: %s\n", buffer->content_size, strlen(buffer->value), buffer->value);//todo remo
   buffer->value = realloc(buffer->value, buffer->max_size * sizeof(char));
 
   // put null at end
