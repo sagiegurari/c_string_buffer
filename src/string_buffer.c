@@ -160,7 +160,7 @@ void string_buffer_release(struct StringBuffer *buffer)
   {
     buffer->value[buffer->content_size] = 0;//todo ???
     printf("free, size: %d srln: %d content: %si\n",(int) buffer->content_size,(int) strlen(buffer->value), buffer->value);//todo remo
-//    free(buffer->value);
+    //todo free(buffer->value);
     buffer->value = NULL;
   }
 
@@ -362,7 +362,8 @@ bool _clear(struct StringBuffer *buffer)
 
   if (buffer->value != NULL)
   {
-    free(buffer->value);
+    buffer->value[buffer->content_size] = 0;//todo??
+    //tod free(buffer->value);
     buffer->value = NULL;
   }
 
