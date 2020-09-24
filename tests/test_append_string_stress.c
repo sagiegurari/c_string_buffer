@@ -20,7 +20,7 @@ void test_impl()
   //string_buffer_release(buffer);
 
   assert_num_equal(strlen(content), 1000 * 5);
-  free(content);
+  //free(content);
 }
 
 
