@@ -268,7 +268,9 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
 {
   if (string_buffer_is_released(buffer) || buffer->content_size == 0)
   {
-    return("");
+    char *string_copy = malloc(sizeof(char));
+    string_copy[0] = 0;
+    return(string_copy);
   }
 
   size_t content_size = buffer->content_size;
