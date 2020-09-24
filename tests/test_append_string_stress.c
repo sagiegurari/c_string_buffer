@@ -17,7 +17,7 @@ void test_impl()
   assert_num_equal(string_buffer_get_content_size(buffer), 1000 * 5);
 
   char *content = string_buffer_to_string(buffer);
-  string_buffer_release(buffer);
+  //string_buffer_release(buffer);
 
   assert_num_equal(strlen(content), 1000 * 5);
   free(content);
