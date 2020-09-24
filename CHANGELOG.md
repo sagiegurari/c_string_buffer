@@ -1,7 +1,8 @@
 ## CHANGELOG
 
-### Unreleased
+### v0.1.3 (2020-09-25)
 
+* Fixed memory allocation.
 * Update cmake build to use shared cmake utilities.
 
 ### v0.1.2 (2020-05-31)

@@ -7,7 +7,7 @@
 struct StringBuffer;
 
 struct StringBuffer *string_buffer_new();
-struct StringBuffer *string_buffer_new_with_options(const size_t, const bool);
+struct StringBuffer *string_buffer_new_with_options(const size_t /* initial_size */, const bool /* allow_resize */);
 
 bool string_buffer_is_released(struct StringBuffer *);
 bool string_buffer_is_empty(struct StringBuffer *);
@@ -19,7 +19,7 @@ bool  string_buffer_is_allow_resize(struct StringBuffer *);
 bool string_buffer_clear(struct StringBuffer *);
 void string_buffer_release(struct StringBuffer *);
 
-bool string_buffer_ensure_capacity(struct StringBuffer *, const size_t);
+bool string_buffer_ensure_capacity(struct StringBuffer *, const size_t /* size */);
 bool string_buffer_shrink(struct StringBuffer *);
 
 char *string_buffer_to_string(struct StringBuffer *);
