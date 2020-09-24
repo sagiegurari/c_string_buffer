@@ -158,9 +158,7 @@ void string_buffer_release(struct StringBuffer *buffer)
 
   if (buffer->value != NULL)
   {
-    buffer->value[buffer->content_size] = 0;//todo ???
-    printf("free, size: %d srln: %d content: %si\n",(int) buffer->content_size,(int) strlen(buffer->value), buffer->value);//todo remo
-    //todo free(buffer->value);
+    free(buffer->value);
     buffer->value = NULL;
   }
 
@@ -280,7 +278,7 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
   }
 
   size_t content_size = buffer->content_size;
-  size_t memory_size  = content_size * sizeof(char);
+  size_t memory_size  = (content_size + 1) * sizeof(char);
   char   *string_copy = malloc(memory_size);
   if (string_copy == NULL)
   {
@@ -362,15 +360,14 @@ bool _clear(struct StringBuffer *buffer)
 
   if (buffer->value != NULL)
   {
-    buffer->value[buffer->content_size] = 0;//todo??
-    //tod free(buffer->value);
+    free(buffer->value);
     buffer->value = NULL;
   }
 
   buffer->max_size     = buffer->initial_size;
   buffer->content_size = 0;
 
-  buffer->value = malloc(buffer->max_size * sizeof(char));
+  buffer->value = malloc((buffer->max_size + 1) * sizeof(char));
   if (buffer->value == NULL)
   {
     string_buffer_release(buffer);
@@ -391,11 +388,8 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
     return(false);
   }
 
-  buffer->value[buffer->content_size] = 0; // ensure we null at end of content
-
   buffer->max_size = size;
-  printf("size: %d strln: %d content: %s\n",(int) buffer->content_size,(int) strlen(buffer->value), buffer->value);//todo remo
-  buffer->value = realloc(buffer->value, buffer->max_size * sizeof(char));
+  buffer->value    = realloc(buffer->value, (buffer->max_size + 1) * sizeof(char));
 
   // put null at end
   buffer->value[buffer->content_size] = 0;
