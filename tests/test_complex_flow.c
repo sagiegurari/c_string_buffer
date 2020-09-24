@@ -1,5 +1,6 @@
 #include "string_buffer.h"
 #include "test.h"
+#include <stdlib.h>
 
 
 void test_impl()
@@ -17,7 +18,10 @@ void test_impl()
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 15);
   assert_num_equal(string_buffer_get_max_size(buffer), 16);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDE");
+
+  char *content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDE");
+  free(content);
 
   assert_true(string_buffer_append_bool(buffer, true));
   assert_true(string_buffer_append_bool(buffer, false));
@@ -25,7 +29,10 @@ void test_impl()
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 24);
   assert_num_equal(string_buffer_get_max_size(buffer), 32);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse");
+  free(content);
 
   assert_true(string_buffer_append_int(buffer, -123));
   assert_true(string_buffer_append_long_long(buffer, 150));
@@ -33,7 +40,10 @@ void test_impl()
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 31);
   assert_num_equal(string_buffer_get_max_size(buffer), 32);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-123150");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-123150");
+  free(content);
 
   string_buffer_clear(buffer);
   assert_true(string_buffer_is_empty(buffer));
@@ -41,7 +51,10 @@ void test_impl()
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 0);
   assert_num_equal(string_buffer_get_max_size(buffer), 1);
-  assert_string_equal(string_buffer_to_string(buffer), "");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "");
+  free(content);
 
   assert_true(string_buffer_append_string(buffer, "12345"));
   assert_true(string_buffer_append_string(buffer, "abcde"));
@@ -54,35 +67,50 @@ void test_impl()
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 31);
   assert_num_equal(string_buffer_get_max_size(buffer), 32);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-123150");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-123150");
+  free(content);
 
   assert_true(string_buffer_shrink(buffer));
 
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 31);
   assert_num_equal(string_buffer_get_max_size(buffer), 31);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-123150");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-123150");
+  free(content);
 
   assert_true(string_buffer_append(buffer, '9'));
 
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 32);
   assert_num_equal(string_buffer_get_max_size(buffer), 62);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-1231509");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-1231509");
+  free(content);
 
   assert_true(string_buffer_ensure_capacity(buffer, 10));
 
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 32);
   assert_num_equal(string_buffer_get_max_size(buffer), 62);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-1231509");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-1231509");
+  free(content);
 
   assert_true(string_buffer_ensure_capacity(buffer, 100));
 
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 32);
   assert_num_equal(string_buffer_get_max_size(buffer), 100);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-1231509");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-1231509");
+  free(content);
 
   assert_true(string_buffer_append_string(buffer, "12345"));
   assert_true(string_buffer_append_string(buffer, "abcde"));
@@ -91,14 +119,22 @@ void test_impl()
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 47);
   assert_num_equal(string_buffer_get_max_size(buffer), 100);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-123150912345abcdeABCDE");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-123150912345abcdeABCDE");
+  free(content);
 
   assert_true(string_buffer_shrink(buffer));
 
   assert_num_equal(string_buffer_get_initial_size(buffer), 1);
   assert_num_equal(string_buffer_get_content_size(buffer), 47);
   assert_num_equal(string_buffer_get_max_size(buffer), 47);
-  assert_string_equal(string_buffer_to_string(buffer), "12345abcdeABCDEtruefalse-123150912345abcdeABCDE");
+
+  content = string_buffer_to_string(buffer);
+  assert_string_equal(content, "12345abcdeABCDEtruefalse-123150912345abcdeABCDE");
+
+  string_buffer_release(buffer);
+  free(content);
 } /* test_impl */
 
 

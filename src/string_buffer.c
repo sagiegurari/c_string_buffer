@@ -268,11 +268,17 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
 {
   if (string_buffer_is_released(buffer) || buffer->content_size == 0)
   {
-    return("");
+    char *string_copy = malloc(sizeof(char));
+    if (string_copy == NULL)
+    {
+      return(NULL);
+    }
+    string_copy[0] = 0;
+    return(string_copy);
   }
 
   size_t content_size = buffer->content_size;
-  size_t memory_size  = content_size * sizeof(char);
+  size_t memory_size  = (content_size + 1) * sizeof(char);
   char   *string_copy = malloc(memory_size);
   if (string_copy == NULL)
   {
@@ -361,13 +367,14 @@ bool _clear(struct StringBuffer *buffer)
   buffer->max_size     = buffer->initial_size;
   buffer->content_size = 0;
 
-  buffer->value = malloc(buffer->max_size * sizeof(char));
+  buffer->value = malloc((buffer->max_size + 1) * sizeof(char));
   if (buffer->value == NULL)
   {
     string_buffer_release(buffer);
     return(false);
   }
 
+  buffer->value[0]                = 0;
   buffer->value[buffer->max_size] = 0;
 
   return(true);
@@ -382,10 +389,11 @@ bool _set_capacity(struct StringBuffer *buffer, const size_t size)
   }
 
   buffer->max_size = size;
-  buffer->value    = realloc(buffer->value, buffer->max_size * sizeof(char));
+  buffer->value    = realloc(buffer->value, (buffer->max_size + 1) * sizeof(char));
 
   // put null at end
-  buffer->value[buffer->max_size] = 0;
+  buffer->value[buffer->content_size] = 0;
+  buffer->value[buffer->max_size]     = 0;
 
   return(true);
 }
