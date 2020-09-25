@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### Unpublished
+
+* Improved build setup (no need to list test names).
+
 ### v0.1.3 (2020-09-25)
 
 * Fixed memory allocation.
