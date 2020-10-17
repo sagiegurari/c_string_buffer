@@ -1,5 +1,5 @@
 
-if [ $1 = "--clean" ]; then
+if [ "$1" = "--clean" ]; then
   echo Cleaning...
   rm -Rf ./target
 fi

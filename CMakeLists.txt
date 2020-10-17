@@ -37,9 +37,9 @@ if(DEFINED ENV{X_CMAKE_UNCRUSTIFY_ENABLED})
 endif()
 
 # create static library
-add_library(string_buffer STATIC ${SOURCES})
+add_library(${CMAKE_PROJECT_NAME} STATIC ${SOURCES})
 if(NOT WIN32)
-  set_target_properties(string_buffer PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS} -Wconversion")
+  set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS} -Wconversion")
 endif()
 
 # tests
