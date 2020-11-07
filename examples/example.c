@@ -42,14 +42,14 @@ int main()
 
   // get a clone text value of the current buffer content
   char *text = string_buffer_to_string(buffer);
-  printf("The Text: %s", text);
+  printf("The Text: %s\n", text);
 
   // we can clear the content we have so far and reuse the
   // string buffer instance
   string_buffer_clear(buffer);
 
   bool is_empty = string_buffer_is_empty(buffer);
-  printf("Is Empty: %d", is_empty);
+  printf("Is Empty: %d\n", is_empty);
 
   // once done, free the buffer
   string_buffer_release(buffer);
