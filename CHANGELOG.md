@@ -1,7 +1,8 @@
 ## CHANGELOG
 
-### Unpublished
+### v0.1.4 (2020-11-07)
 
+* Internal functions are now namespaced with _string_buffer prefix.
 * Improved build setup (no need to list test names).
 
 ### v0.1.3 (2020-09-25)
