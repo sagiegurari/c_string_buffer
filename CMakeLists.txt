@@ -27,13 +27,14 @@ file(GLOB SOURCES "src/*.c")
 file(GLOB HEADER_SOURCES "include/*.h")
 file(GLOB TEST_SOURCES "tests/*")
 file(GLOB COMMON_TEST_SOURCES "tests/test.*")
+file(GLOB EXAMPLE_SOURCES "examples/*.c")
 
 # format code
 if(DEFINED ENV{X_CMAKE_UNCRUSTIFY_ENABLED})
   add_custom_target(uncrustify ALL
     uncrustify
     -c ${X_CMAKE_PROJECT_ROOT_DIR}/uncrustify.cfg
-    --no-backup ${SOURCES} ${HEADER_SOURCES} ${TEST_SOURCES})
+    --no-backup ${SOURCES} ${HEADER_SOURCES} ${TEST_SOURCES} ${EXAMPLE_SOURCES})
 endif()
 
 # create static library
@@ -41,6 +42,11 @@ add_library(${CMAKE_PROJECT_NAME} STATIC ${SOURCES})
 if(NOT WIN32)
   set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS} -Wconversion")
 endif()
+
+# example
+add_executable(example examples/example.c)
+target_link_libraries(example ${CMAKE_PROJECT_NAME})
+set_target_properties(example PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS}")
 
 # tests
 enable_testing()

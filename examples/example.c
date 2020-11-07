@@ -1,26 +1,3 @@
-# string_buffer
-
-[![CI](https://github.com/sagiegurari/c_string_buffer/workflows/CI/badge.svg?branch=master)](https://github.com/sagiegurari/c_string_buffer/actions)
-[![Release](https://img.shields.io/github/v/release/sagiegurari/c_string_buffer)](https://github.com/sagiegurari/c_string_buffer/releases)
-[![license](https://img.shields.io/github/license/sagiegurari/c_string_buffer)](https://github.com/sagiegurari/c_string_buffer/blob/master/LICENSE)
-
-> A simple string buffer for C.
-
-* [Overview](#overview)
-* [Usage](#usage)
-* [Contributing](.github/CONTRIBUTING.md)
-* [Release History](CHANGELOG.md)
-* [License](#license)
-
-<a name="overview"></a>
-## Overview
-This library provides a simple string buffer which allows adding different basic data types.<br>
-It can be used to generate large strings without the need to worry about memory allocation or type conversions.
-
-<a name="usage"></a>
-## Usage
-
-```c
 #include "string_buffer.h"
 #include <stdio.h>
 
@@ -77,16 +54,3 @@ int main()
   // once done, free the buffer
   string_buffer_release(buffer);
 } /* main */
-```
-
-## Contributing
-See [contributing guide](.github/CONTRIBUTING.md)
-
-<a name="history"></a>
-## Release History
-
-See [Changelog](CHANGELOG.md)
-
-<a name="license"></a>
-## License
-Developed by Sagie Gur-Ari and licensed under the Apache 2 open source license.
