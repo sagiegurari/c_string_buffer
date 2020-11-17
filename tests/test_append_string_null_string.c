@@ -8,6 +8,8 @@ void test_impl()
 
   assert_true(string_buffer_append_string(buffer, NULL));
   assert_true(string_buffer_is_empty(buffer));
+
+  string_buffer_release(buffer);
 }
 
 

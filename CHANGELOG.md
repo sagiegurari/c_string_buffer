@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.1.5
+
+* Free all memory in tests
+
 ### v0.1.4 (2020-11-07)
 
 * Internal functions are now namespaced with _string_buffer prefix.
