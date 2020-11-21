@@ -11,4 +11,6 @@ mkdir ./target
 
 cd ./target
 (cmake .. && make && ctest -C Release --output-on-failure) || true
+# memory check
+# ctest -T memcheck || true
 cd -
