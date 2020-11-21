@@ -36,7 +36,7 @@ jobs:
       if: matrix.os == 'ubuntu-latest'
       shell: bash
       working-directory: ${{runner.workspace}}/target
-      run:
-        - sudo apt install -y valgrind
-        - ctest -T memcheck
+      run: |
+        sudo apt install -y valgrind
+        ctest -T memcheck
 
