@@ -49,7 +49,7 @@ target_link_libraries(example ${CMAKE_PROJECT_NAME})
 set_target_properties(example PROPERTIES COMPILE_FLAGS "${X_CMAKE_C_FLAGS}")
 
 # tests
-enable_testing()
+include(CTest)
 
 utils_setup_c_all_tests(
   ADDITIONAL_SOURCES "${COMMON_TEST_SOURCES}"

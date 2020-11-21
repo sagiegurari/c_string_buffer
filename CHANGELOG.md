@@ -3,6 +3,7 @@
 ### v0.1.5
 
 * Free all memory in tests
+* Add memory test via cmake support
 
 ### v0.1.4 (2020-11-07)
 

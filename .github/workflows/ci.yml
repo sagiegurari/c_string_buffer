@@ -32,4 +32,11 @@ jobs:
       shell: bash
       working-directory: ${{runner.workspace}}/target
       run: ctest -C $BUILD_TYPE --output-on-failure
+    - name: Memory Leak Test
+      if: matrix.os == 'ubuntu-latest'
+      shell: bash
+      working-directory: ${{runner.workspace}}/target
+      run:
+        - sudo apt install -y valgrind
+        - ctest -T memcheck
 
