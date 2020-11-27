@@ -38,5 +38,5 @@ jobs:
       working-directory: ${{runner.workspace}}/target
       run: |
         sudo apt install -y valgrind
-        for testfile in ./bin/test_*; do valgrind --leak-check=full --show-leak-kinds=definite,indirect,possible --error-exitcode=1 "${testfile}"; done
+        for testfile in ./bin/test_*; do echo "Testing ${testfile}" && valgrind --leak-check=full --show-leak-kinds=definite,indirect,possible --error-exitcode=1 "${testfile}"; done
 
