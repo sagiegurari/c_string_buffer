@@ -33,7 +33,7 @@ void assert_num_equal(size_t value1, size_t value2)
   if (value1 != value2)
   {
 #ifdef linux
-    printf("Assert Failed, value: %zu not equals to value: %zu", value1, value2);
+    printf("Assert Failed, value: %zu not equals to value: %zu\n", value1, value2);
 #endif
     test_fail();
   }
@@ -44,7 +44,7 @@ void assert_string_equal(char *value1, char *value2)
 {
   if (strcmp(value1, value2) != 0)
   {
-    printf("Assert Failed, value: %s not equals to value: %s", value1, value2);
+    printf("Assert Failed, value: %s not equals to value: %s\n", value1, value2);
     test_fail();
   }
 }
