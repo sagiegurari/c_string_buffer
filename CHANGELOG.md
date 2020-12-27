@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.1.5
+### v0.1.5 (2020-12-27)
 
 * Change default initial buffer size to 64.
 * Support different default initial buffer size via STRING_BUFFER_INITIAL_BUFFER_SIZE define.
