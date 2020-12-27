@@ -4,6 +4,10 @@
 #include <stdbool.h>
 #include <stddef.h>
 
+#ifndef STRING_BUFFER_INITIAL_BUFFER_SIZE
+#define STRING_BUFFER_INITIAL_BUFFER_SIZE    64
+#endif
+
 struct StringBuffer;
 
 struct StringBuffer *string_buffer_new();

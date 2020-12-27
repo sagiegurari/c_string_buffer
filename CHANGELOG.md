@@ -2,6 +2,8 @@
 
 ### v0.1.5
 
+* Change default initial buffer size to 64.
+* Support different default initial buffer size via STRING_BUFFER_INITIAL_BUFFER_SIZE define.
 * Free all memory in tests
 * Test memory leaks in CI
 

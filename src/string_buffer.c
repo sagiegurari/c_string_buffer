@@ -25,7 +25,7 @@ bool _string_buffer_add_numeric_type(struct StringBuffer *, const char *, ...);
 
 struct StringBuffer *string_buffer_new()
 {
-  return(string_buffer_new_with_options(10240, true));
+  return(string_buffer_new_with_options(STRING_BUFFER_INITIAL_BUFFER_SIZE, true));
 }
 
 
