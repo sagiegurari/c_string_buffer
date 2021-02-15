@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.1.6
+
+* Removed internal release flag
+
 ### v0.1.5 (2020-12-27)
 
 * Change default initial buffer size to 64.

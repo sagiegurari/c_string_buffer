@@ -9,7 +9,6 @@
 
 struct StringBuffer
 {
-  bool   released;
   size_t initial_size;
   size_t content_size;
   size_t max_size;
@@ -45,7 +44,6 @@ struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, c
     return(NULL);
   }
 
-  buffer->released     = false;
   buffer->initial_size = size;
   buffer->content_size = 0;
   buffer->work_buffer  = malloc(STRING_BUFFER_WORK_BUFFER_SIZE * sizeof(char));
@@ -61,12 +59,6 @@ struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, c
   buffer->allow_resize = allow_resize;
 
   return(buffer);
-}
-
-
-bool string_buffer_is_released(struct StringBuffer *buffer)
-{
-  return(buffer == NULL || buffer->released);
 }
 
 
@@ -102,7 +94,7 @@ bool  string_buffer_is_allow_resize(struct StringBuffer *buffer)
 
 bool string_buffer_clear(struct StringBuffer *buffer)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return(false);
   }
@@ -119,7 +111,7 @@ bool string_buffer_clear(struct StringBuffer *buffer)
 
 bool string_buffer_ensure_capacity(struct StringBuffer *buffer, const size_t size)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return(false);
   }
@@ -135,7 +127,7 @@ bool string_buffer_ensure_capacity(struct StringBuffer *buffer, const size_t siz
 
 bool string_buffer_shrink(struct StringBuffer *buffer)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return(false);
   }
@@ -151,7 +143,7 @@ bool string_buffer_shrink(struct StringBuffer *buffer)
 
 void string_buffer_release(struct StringBuffer *buffer)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return;
   }
@@ -168,15 +160,13 @@ void string_buffer_release(struct StringBuffer *buffer)
     buffer->work_buffer = NULL;
   }
 
-  buffer->released = true;
-
   free(buffer);
 }
 
 
 bool string_buffer_append(struct StringBuffer *buffer, char character)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return(false);
   }
@@ -213,7 +203,7 @@ bool string_buffer_append_string(struct StringBuffer *buffer, char *string)
 
 bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char *string, const size_t offset, const size_t length)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return(false);
   }
@@ -266,7 +256,7 @@ bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char 
 
 char *string_buffer_to_string(struct StringBuffer *buffer)
 {
-  if (string_buffer_is_released(buffer) || buffer->content_size == 0)
+  if (buffer == NULL || buffer->content_size == 0)
   {
     char *string_copy = malloc(sizeof(char));
     if (string_copy == NULL)
@@ -353,7 +343,7 @@ bool string_buffer_append_unsigned_long_long(struct StringBuffer *buffer, unsign
 
 bool _string_buffer_clear(struct StringBuffer *buffer)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return(false);
   }
@@ -401,7 +391,7 @@ bool _string_buffer_set_capacity(struct StringBuffer *buffer, const size_t size)
 
 bool _string_buffer_add_numeric_type(struct StringBuffer *buffer, const char *format, ...)
 {
-  if (string_buffer_is_released(buffer))
+  if (buffer == NULL)
   {
     return(false);
   }
