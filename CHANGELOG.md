@@ -3,6 +3,7 @@
 ### v0.1.6
 
 * Removed internal release flag
+* Added cargo-make makefile for simpler sharing of optional development build instructions.
 
 ### v0.1.5 (2020-12-27)
 
