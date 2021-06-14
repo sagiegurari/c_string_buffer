@@ -2,6 +2,7 @@
 
 ### v0.1.6
 
+* Added void to no arg functions
 * Removed internal release flag
 * Added cargo-make makefile for simpler sharing of optional development build instructions.
 

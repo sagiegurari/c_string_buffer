@@ -10,7 +10,7 @@
 
 struct StringBuffer;
 
-struct StringBuffer *string_buffer_new();
+struct StringBuffer *string_buffer_new(void);
 struct StringBuffer *string_buffer_new_with_options(const size_t /* initial_size */, const bool /* allow_resize */);
 
 bool string_buffer_is_empty(struct StringBuffer *);
