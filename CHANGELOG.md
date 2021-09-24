@@ -1,7 +1,8 @@
 ## CHANGELOG
 
-### v0.1.6
+### v0.1.6 (2021-09-24)
 
+* New string_buffer_append_binary function.
 * Added void to no arg functions
 * Removed internal release flag
 * Added cargo-make makefile for simpler sharing of optional development build instructions.

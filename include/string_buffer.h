@@ -30,6 +30,7 @@ char *string_buffer_to_string(struct StringBuffer *);
 bool string_buffer_append(struct StringBuffer *, char);
 bool string_buffer_append_string(struct StringBuffer *, char *);
 bool string_buffer_append_string_with_options(struct StringBuffer *, char *, const size_t /* offset */, const size_t /* length */);
+bool string_buffer_append_binary(struct StringBuffer *, char *, const size_t /* offset */, const size_t /* length */);
 bool string_buffer_append_bool(struct StringBuffer *, bool);
 bool string_buffer_append_short(struct StringBuffer *, short);
 bool string_buffer_append_int(struct StringBuffer *, int);

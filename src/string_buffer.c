@@ -224,6 +224,22 @@ bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char 
     return(false);
   }
 
+  return(string_buffer_append_binary(buffer, string, offset, length));
+} /* string_buffer_append_string_with_options */
+
+
+bool string_buffer_append_binary(struct StringBuffer *buffer, char *content, const size_t offset, const size_t length)
+{
+  if (buffer == NULL)
+  {
+    return(false);
+  }
+
+  if (content == NULL)
+  {
+    return(true);
+  }
+
   const size_t loop_end = length + offset;
 
   const size_t size_left = buffer->max_size - buffer->content_size;
@@ -244,14 +260,14 @@ bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char 
 
   for (size_t index = offset, content_index = 0; index < loop_end; index++, content_index++)
   {
-    buffer->value[buffer->content_size] = string[index];
+    buffer->value[buffer->content_size] = content[index];
     buffer->content_size++;
   }
 
   buffer->value[buffer->content_size] = 0;
 
   return(true);
-} /* string_buffer_append_string_with_options */
+}
 
 
 char *string_buffer_to_string(struct StringBuffer *buffer)
