@@ -1,23 +1,27 @@
 ## CHANGELOG
 
+### v0.1.7
+
+* Added static to internal functions
+
 ### v0.1.6 (2021-09-24)
 
-* New string_buffer_append_binary function.
+* New string_buffer_append_binary function
 * Added void to no arg functions
 * Removed internal release flag
-* Added cargo-make makefile for simpler sharing of optional development build instructions.
+* Added cargo-make makefile for simpler sharing of optional development build instructions
 
 ### v0.1.5 (2020-12-27)
 
-* Change default initial buffer size to 64.
-* Support different default initial buffer size via STRING_BUFFER_INITIAL_BUFFER_SIZE define.
+* Change default initial buffer size to 64
+* Support different default initial buffer size via STRING_BUFFER_INITIAL_BUFFER_SIZE define
 * Free all memory in tests
 * Test memory leaks in CI
 
 ### v0.1.4 (2020-11-07)
 
-* Internal functions are now namespaced with _string_buffer prefix.
-* Improved build setup (no need to list test names).
+* Internal functions are now namespaced with \_string_buffer prefix
+* Improved build setup (no need to list test names)
 
 ### v0.1.3 (2020-09-25)
 

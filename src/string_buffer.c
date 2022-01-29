@@ -18,9 +18,9 @@ struct StringBuffer
 };
 
 // private functions definitions
-bool _string_buffer_clear(struct StringBuffer *);
-bool _string_buffer_set_capacity(struct StringBuffer *, const size_t);
-bool _string_buffer_add_numeric_type(struct StringBuffer *, const char *, ...);
+static bool _string_buffer_clear(struct StringBuffer *);
+static bool _string_buffer_set_capacity(struct StringBuffer *, const size_t);
+static bool _string_buffer_add_numeric_type(struct StringBuffer *, const char *, ...);
 
 struct StringBuffer *string_buffer_new()
 {
@@ -86,7 +86,7 @@ size_t string_buffer_get_max_size(struct StringBuffer *buffer)
 }
 
 
-bool  string_buffer_is_allow_resize(struct StringBuffer *buffer)
+bool string_buffer_is_allow_resize(struct StringBuffer *buffer)
 {
   return(buffer->allow_resize);
 }
@@ -357,7 +357,7 @@ bool string_buffer_append_unsigned_long_long(struct StringBuffer *buffer, unsign
 }
 
 
-bool _string_buffer_clear(struct StringBuffer *buffer)
+static bool _string_buffer_clear(struct StringBuffer *buffer)
 {
   if (buffer == NULL)
   {
@@ -387,7 +387,7 @@ bool _string_buffer_clear(struct StringBuffer *buffer)
 }
 
 
-bool _string_buffer_set_capacity(struct StringBuffer *buffer, const size_t size)
+static bool _string_buffer_set_capacity(struct StringBuffer *buffer, const size_t size)
 {
   if (!buffer->allow_resize)
   {
@@ -405,7 +405,7 @@ bool _string_buffer_set_capacity(struct StringBuffer *buffer, const size_t size)
 }
 
 
-bool _string_buffer_add_numeric_type(struct StringBuffer *buffer, const char *format, ...)
+static bool _string_buffer_add_numeric_type(struct StringBuffer *buffer, const char *format, ...)
 {
   if (buffer == NULL)
   {
