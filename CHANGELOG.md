@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.2.0
+### v0.2.0 (2022-02-06)
 
 * \[**backward compatibility break**\] Renamed string_buffer to stringbuffer to be prevent conflict with external APIs
 * Added static to internal functions
