@@ -1,10 +1,10 @@
-#include "string_buffer.h"
+#include "stringbuffer.h"
 #include "test.h"
 
 
 void test_impl()
 {
-  assert_true(!string_buffer_append_short(NULL, 1));
+  assert_true(!stringbuffer_append_short(NULL, 1));
 }
 
 

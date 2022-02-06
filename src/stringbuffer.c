@@ -1,11 +1,11 @@
-#include "string_buffer.h"
+#include "stringbuffer.h"
 #include <stdarg.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define STRING_BUFFER_WORK_BUFFER_SIZE    21
+#define STRINGBUFFER_WORK_BUFFER_SIZE    21
 
 struct StringBuffer
 {
@@ -18,17 +18,17 @@ struct StringBuffer
 };
 
 // private functions definitions
-static bool _string_buffer_clear(struct StringBuffer *);
-static bool _string_buffer_set_capacity(struct StringBuffer *, const size_t);
-static bool _string_buffer_add_numeric_type(struct StringBuffer *, const char *, ...);
+static bool _stringbuffer_clear(struct StringBuffer *);
+static bool _stringbuffer_set_capacity(struct StringBuffer *, const size_t);
+static bool _stringbuffer_add_numeric_type(struct StringBuffer *, const char *, ...);
 
-struct StringBuffer *string_buffer_new()
+struct StringBuffer *stringbuffer_new()
 {
-  return(string_buffer_new_with_options(STRING_BUFFER_INITIAL_BUFFER_SIZE, true));
+  return(stringbuffer_new_with_options(STRINGBUFFER_INITIAL_BUFFER_SIZE, true));
 }
 
 
-struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, const bool allow_resize)
+struct StringBuffer *stringbuffer_new_with_options(const size_t initial_size, const bool allow_resize)
 {
   size_t size = 1;
 
@@ -46,12 +46,12 @@ struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, c
 
   buffer->initial_size = size;
   buffer->content_size = 0;
-  buffer->work_buffer  = malloc(STRING_BUFFER_WORK_BUFFER_SIZE * sizeof(char));
+  buffer->work_buffer  = malloc(STRINGBUFFER_WORK_BUFFER_SIZE * sizeof(char));
 
   buffer->value = NULL;
-  if (!_string_buffer_clear(buffer))
+  if (!_stringbuffer_clear(buffer))
   {
-    string_buffer_release(buffer);
+    stringbuffer_release(buffer);
     return(NULL);
   }
 
@@ -62,37 +62,37 @@ struct StringBuffer *string_buffer_new_with_options(const size_t initial_size, c
 }
 
 
-bool string_buffer_is_empty(struct StringBuffer *buffer)
+bool stringbuffer_is_empty(struct StringBuffer *buffer)
 {
   return(buffer->content_size == 0);
 }
 
 
-size_t string_buffer_get_initial_size(struct StringBuffer *buffer)
+size_t stringbuffer_get_initial_size(struct StringBuffer *buffer)
 {
   return(buffer->initial_size);
 }
 
 
-size_t string_buffer_get_content_size(struct StringBuffer *buffer)
+size_t stringbuffer_get_content_size(struct StringBuffer *buffer)
 {
   return(buffer->content_size);
 }
 
 
-size_t string_buffer_get_max_size(struct StringBuffer *buffer)
+size_t stringbuffer_get_max_size(struct StringBuffer *buffer)
 {
   return(buffer->max_size);
 }
 
 
-bool string_buffer_is_allow_resize(struct StringBuffer *buffer)
+bool stringbuffer_is_allow_resize(struct StringBuffer *buffer)
 {
   return(buffer->allow_resize);
 }
 
 
-bool string_buffer_clear(struct StringBuffer *buffer)
+bool stringbuffer_clear(struct StringBuffer *buffer)
 {
   if (buffer == NULL)
   {
@@ -105,11 +105,11 @@ bool string_buffer_clear(struct StringBuffer *buffer)
     return(true);
   }
 
-  return(_string_buffer_clear(buffer));
+  return(_stringbuffer_clear(buffer));
 }
 
 
-bool string_buffer_ensure_capacity(struct StringBuffer *buffer, const size_t size)
+bool stringbuffer_ensure_capacity(struct StringBuffer *buffer, const size_t size)
 {
   if (buffer == NULL)
   {
@@ -121,11 +121,11 @@ bool string_buffer_ensure_capacity(struct StringBuffer *buffer, const size_t siz
     return(true);
   }
 
-  return(_string_buffer_set_capacity(buffer, size));
+  return(_stringbuffer_set_capacity(buffer, size));
 }
 
 
-bool string_buffer_shrink(struct StringBuffer *buffer)
+bool stringbuffer_shrink(struct StringBuffer *buffer)
 {
   if (buffer == NULL)
   {
@@ -137,11 +137,11 @@ bool string_buffer_shrink(struct StringBuffer *buffer)
     return(true);
   }
 
-  return(_string_buffer_set_capacity(buffer, buffer->content_size));
+  return(_stringbuffer_set_capacity(buffer, buffer->content_size));
 }
 
 
-void string_buffer_release(struct StringBuffer *buffer)
+void stringbuffer_release(struct StringBuffer *buffer)
 {
   if (buffer == NULL)
   {
@@ -164,7 +164,7 @@ void string_buffer_release(struct StringBuffer *buffer)
 }
 
 
-bool string_buffer_append(struct StringBuffer *buffer, char character)
+bool stringbuffer_append(struct StringBuffer *buffer, char character)
 {
   if (buffer == NULL)
   {
@@ -174,7 +174,7 @@ bool string_buffer_append(struct StringBuffer *buffer, char character)
   if (buffer->content_size == buffer->max_size)
   {
     const size_t new_size = buffer->content_size * 2;
-    if (!_string_buffer_set_capacity(buffer, new_size))
+    if (!_stringbuffer_set_capacity(buffer, new_size))
     {
       return(false);
     }
@@ -188,7 +188,7 @@ bool string_buffer_append(struct StringBuffer *buffer, char character)
 }
 
 
-bool string_buffer_append_string(struct StringBuffer *buffer, char *string)
+bool stringbuffer_append_string(struct StringBuffer *buffer, char *string)
 {
   if (string == NULL)
   {
@@ -197,11 +197,11 @@ bool string_buffer_append_string(struct StringBuffer *buffer, char *string)
 
   const size_t length = strlen(string);
 
-  return(string_buffer_append_string_with_options(buffer, string, 0, length));
+  return(stringbuffer_append_string_with_options(buffer, string, 0, length));
 }
 
 
-bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char *string, const size_t offset, const size_t length)
+bool stringbuffer_append_string_with_options(struct StringBuffer *buffer, char *string, const size_t offset, const size_t length)
 {
   if (buffer == NULL)
   {
@@ -224,11 +224,11 @@ bool string_buffer_append_string_with_options(struct StringBuffer *buffer, char 
     return(false);
   }
 
-  return(string_buffer_append_binary(buffer, string, offset, length));
-} /* string_buffer_append_string_with_options */
+  return(stringbuffer_append_binary(buffer, string, offset, length));
+} /* stringbuffer_append_string_with_options */
 
 
-bool string_buffer_append_binary(struct StringBuffer *buffer, char *content, const size_t offset, const size_t length)
+bool stringbuffer_append_binary(struct StringBuffer *buffer, char *content, const size_t offset, const size_t length)
 {
   if (buffer == NULL)
   {
@@ -252,7 +252,7 @@ bool string_buffer_append_binary(struct StringBuffer *buffer, char *content, con
       new_size = new_size * 2;
     }
 
-    if (!_string_buffer_set_capacity(buffer, new_size))
+    if (!_stringbuffer_set_capacity(buffer, new_size))
     {
       return(false);
     }
@@ -270,7 +270,7 @@ bool string_buffer_append_binary(struct StringBuffer *buffer, char *content, con
 }
 
 
-char *string_buffer_to_string(struct StringBuffer *buffer)
+char *stringbuffer_to_string(struct StringBuffer *buffer)
 {
   if (buffer == NULL || buffer->content_size == 0)
   {
@@ -301,63 +301,63 @@ char *string_buffer_to_string(struct StringBuffer *buffer)
 }
 
 
-bool string_buffer_append_bool(struct StringBuffer *buffer, bool value)
+bool stringbuffer_append_bool(struct StringBuffer *buffer, bool value)
 {
   char *string = value ? "true" : "false";
 
-  return(string_buffer_append_string(buffer, string));
+  return(stringbuffer_append_string(buffer, string));
 }
 
 
-bool string_buffer_append_short(struct StringBuffer *buffer, short value)
+bool stringbuffer_append_short(struct StringBuffer *buffer, short value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%hi", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%hi", value));
 }
 
 
-bool string_buffer_append_int(struct StringBuffer *buffer, int value)
+bool stringbuffer_append_int(struct StringBuffer *buffer, int value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%i", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%i", value));
 }
 
 
-bool string_buffer_append_long(struct StringBuffer *buffer, long value)
+bool stringbuffer_append_long(struct StringBuffer *buffer, long value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%li", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%li", value));
 }
 
 
-bool string_buffer_append_long_long(struct StringBuffer *buffer, long long value)
+bool stringbuffer_append_long_long(struct StringBuffer *buffer, long long value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%lli", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%lli", value));
 }
 
 
-bool string_buffer_append_unsigned_short(struct StringBuffer *buffer, unsigned short value)
+bool stringbuffer_append_unsigned_short(struct StringBuffer *buffer, unsigned short value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%hu", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%hu", value));
 }
 
 
-bool string_buffer_append_unsigned_int(struct StringBuffer *buffer, unsigned int value)
+bool stringbuffer_append_unsigned_int(struct StringBuffer *buffer, unsigned int value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%u", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%u", value));
 }
 
 
-bool string_buffer_append_unsigned_long(struct StringBuffer *buffer, unsigned long value)
+bool stringbuffer_append_unsigned_long(struct StringBuffer *buffer, unsigned long value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%lu", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%lu", value));
 }
 
 
-bool string_buffer_append_unsigned_long_long(struct StringBuffer *buffer, unsigned long long value)
+bool stringbuffer_append_unsigned_long_long(struct StringBuffer *buffer, unsigned long long value)
 {
-  return(_string_buffer_add_numeric_type(buffer, "%llu", value));
+  return(_stringbuffer_add_numeric_type(buffer, "%llu", value));
 }
 
 
-static bool _string_buffer_clear(struct StringBuffer *buffer)
+static bool _stringbuffer_clear(struct StringBuffer *buffer)
 {
   if (buffer == NULL)
   {
@@ -376,7 +376,7 @@ static bool _string_buffer_clear(struct StringBuffer *buffer)
   buffer->value = malloc((buffer->max_size + 1) * sizeof(char));
   if (buffer->value == NULL)
   {
-    string_buffer_release(buffer);
+    stringbuffer_release(buffer);
     return(false);
   }
 
@@ -387,7 +387,7 @@ static bool _string_buffer_clear(struct StringBuffer *buffer)
 }
 
 
-static bool _string_buffer_set_capacity(struct StringBuffer *buffer, const size_t size)
+static bool _stringbuffer_set_capacity(struct StringBuffer *buffer, const size_t size)
 {
   if (!buffer->allow_resize)
   {
@@ -405,7 +405,7 @@ static bool _string_buffer_set_capacity(struct StringBuffer *buffer, const size_
 }
 
 
-static bool _string_buffer_add_numeric_type(struct StringBuffer *buffer, const char *format, ...)
+static bool _stringbuffer_add_numeric_type(struct StringBuffer *buffer, const char *format, ...)
 {
   if (buffer == NULL)
   {
@@ -414,7 +414,7 @@ static bool _string_buffer_add_numeric_type(struct StringBuffer *buffer, const c
 
   va_list   args;
   va_start(args, format);
-  const int length = vsnprintf(buffer->work_buffer, STRING_BUFFER_WORK_BUFFER_SIZE, format, args);
+  const int length = vsnprintf(buffer->work_buffer, STRINGBUFFER_WORK_BUFFER_SIZE, format, args);
   va_end(args);
 
   if (length <= 0)
@@ -422,7 +422,7 @@ static bool _string_buffer_add_numeric_type(struct StringBuffer *buffer, const c
     return(false);
   }
 
-  const bool result = string_buffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
+  const bool result = stringbuffer_append_string_with_options(buffer, buffer->work_buffer, 0, (size_t)length);
 
   return(result);
 }
