@@ -1,5 +1,5 @@
-#ifndef __STRINGBUFFER_H__
-#define __STRINGBUFFER_H__
+#ifndef STRINGBUFFER_H
+#define STRINGBUFFER_H
 
 #include <stdbool.h>
 #include <stddef.h>

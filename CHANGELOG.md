@@ -1,5 +1,9 @@
 ## CHANGELOG
 
+### v0.2.1
+
+* Updated header include guard macro name
+
 ### v0.2.0 (2022-02-06)
 
 * \[**backward compatibility break**\] Renamed string_buffer to stringbuffer to be prevent conflict with external APIs
