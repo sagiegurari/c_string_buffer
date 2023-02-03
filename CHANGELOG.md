@@ -2,6 +2,7 @@
 
 ### v0.2.1
 
+* New floating type append functions
 * Updated header include guard macro name
 
 ### v0.2.0 (2022-02-06)

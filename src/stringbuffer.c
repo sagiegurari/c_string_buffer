@@ -357,6 +357,24 @@ bool stringbuffer_append_unsigned_long_long(struct StringBuffer *buffer, unsigne
 }
 
 
+bool stringbuffer_append_float(struct StringBuffer *buffer, float value)
+{
+  return(_stringbuffer_add_numeric_type(buffer, "%f", value));
+}
+
+
+bool stringbuffer_append_double(struct StringBuffer *buffer, double value)
+{
+  return(_stringbuffer_add_numeric_type(buffer, "%f", value));
+}
+
+
+bool stringbuffer_append_long_double(struct StringBuffer *buffer, long double value)
+{
+  return(_stringbuffer_add_numeric_type(buffer, "%Lf", value));
+}
+
+
 static bool _stringbuffer_clear(struct StringBuffer *buffer)
 {
   if (buffer == NULL)
