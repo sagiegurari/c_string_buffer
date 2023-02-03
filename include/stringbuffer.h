@@ -40,6 +40,9 @@ bool stringbuffer_append_unsigned_short(struct StringBuffer *, unsigned short);
 bool stringbuffer_append_unsigned_int(struct StringBuffer *, unsigned int);
 bool stringbuffer_append_unsigned_long(struct StringBuffer *, unsigned long);
 bool stringbuffer_append_unsigned_long_long(struct StringBuffer *, unsigned long long);
+bool stringbuffer_append_float(struct StringBuffer *, float);
+bool stringbuffer_append_double(struct StringBuffer *, double);
+bool stringbuffer_append_long_double(struct StringBuffer *, long double);
 
 #endif
 
