@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### v0.2.1
+### v0.2.1 (2023-02-03)
 
 * New floating type append functions
 * Updated header include guard macro name
