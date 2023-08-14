@@ -22,7 +22,7 @@ static bool _stringbuffer_clear(struct StringBuffer *);
 static bool _stringbuffer_set_capacity(struct StringBuffer *, const size_t);
 static bool _stringbuffer_add_numeric_type(struct StringBuffer *, const char *, ...);
 
-struct StringBuffer *stringbuffer_new()
+struct StringBuffer *stringbuffer_new(void)
 {
   return(stringbuffer_new_with_options(STRINGBUFFER_INITIAL_BUFFER_SIZE, true));
 }
