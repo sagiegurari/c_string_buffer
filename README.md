@@ -20,6 +20,7 @@ It can be used to generate large strings without the need to worry about memory 
 <a name="usage"></a>
 ## Usage
 
+<!-- example source start -->
 ```c
 #include "stringbuffer.h"
 #include <stdio.h>
@@ -78,6 +79,7 @@ int main()
   stringbuffer_release(buffer);
 } /* main */
 ```
+<!-- example source end -->
 
 ## Contributing
 See [contributing guide](.github/CONTRIBUTING.md)
